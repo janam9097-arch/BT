@@ -12,6 +12,7 @@ function Products() {
   { id: 7, image: 'https://picsum.photos/200?7', name: "Women's Ethnic Wear", discount: "30-70% OFF" },
   { id: 8, image: 'https://picsum.photos/200?8', name: "Watches", discount: "20-50% OFF" },
   { id: 9, image: 'https://picsum.photos/200?9', name: "Sunglasses", discount: "30-60% OFF" },
+  { id: 10, image: 'https://picsum.photos/200?10', name: "Glasses", discount: "60-90% OFF" },
 ];
     return (
         <section className="products-section">

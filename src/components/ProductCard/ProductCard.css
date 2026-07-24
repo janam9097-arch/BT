@@ -10,11 +10,12 @@ body{
     border-radius:10px;
     text-align:center;
     padding:10px;
-    margin:10px;
-    width:220px;
-    display:inline-block;
-    vertical-align:top;
+    margin:0;
+    width:100%;
+    height:100%;
     box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
     transition:transform .3s ease, box-shadow .3s ease;
 }
 
@@ -28,10 +29,15 @@ body{
     height:260px;
     object-fit:cover;
     border-radius:10px;
+    flex-shrink:0;
 }
 
 .Card-info{
     padding-top:12px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 }
 
 .Card-name{
@@ -67,11 +73,6 @@ body{
 
 @media (max-width:768px){
 
-    .Card{
-        width:180px;
-        margin:8px;
-    }
-
     .Card-img{
         height:220px;
     }
@@ -94,28 +95,8 @@ body{
 
 @media (max-width:480px){
 
-    .Card{
-        width:100%;
-        margin:0;
-        padding:10px;
-        display:flex;
-        flex-direction:column;
-        height:100%;
-        box-sizing:border-box;
-    }
-
     .Card-img{
         height:150px;
-        width:100%;
-        object-fit:cover;
-    }
-
-    .Card-info{
-        padding-top:12px;
-        flex:1;
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
     }
 
     .Card-name{
