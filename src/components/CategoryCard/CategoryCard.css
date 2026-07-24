@@ -22,11 +22,25 @@
 
 .category-name {
     background: #000;
-    color: white;
+    color: #fff;
     text-align: center;
-    padding: 12px 8px;
+    padding: 12px 6px;
     font-size: 20px;
     font-family: "Cormorant Garamond", serif;
+}
+
+/* Large Tablet */
+
+@media (max-width:1200px){
+
+    .category-img{
+        height:180px;
+    }
+
+    .category-name{
+        font-size:18px;
+    }
+
 }
 
 /* Tablet */
@@ -34,12 +48,12 @@
 @media (max-width:768px){
 
     .category-img{
-        height:140px;
+        height:90px;
     }
 
     .category-name{
-        font-size:16px;
-        padding:8px 4px;
+        font-size:11px;
+        padding:6px 2px;
     }
 
 }
@@ -49,12 +63,13 @@
 @media (max-width:480px){
 
     .category-img{
-        height:90px;
+        height:60px;
     }
 
     .category-name{
-        font-size:11px;
-        padding:6px 2px;
+        font-size:9px;
+        padding:4px 2px;
+        line-height:1.2;
     }
 
 }
