@@ -18,11 +18,9 @@ function Products() {
             <h2 className="section-title">Featured Products</h2>
 
             <div className="products-grid">
-                <div>
-      {products.map((p) => (
-        <ProductsCard key={p.id} product={p} />
-      ))}
-    </div>
+                {products.map((p) => (
+                    <ProductsCard key={p.id} product={p} />
+                ))}
             </div>
         </section>
     );
