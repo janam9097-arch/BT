@@ -10,11 +10,11 @@ body{
     border-radius:10px;
     text-align:center;
     padding:10px;
-    margin:0;
+    margin:10px;
     width:220px;
-    flex:0 0 220px;
+    display:inline-block;
+    vertical-align:top;
     box-sizing:border-box;
-    scroll-snap-align:start;
     transition:transform .3s ease, box-shadow .3s ease;
 }
 
@@ -69,7 +69,7 @@ body{
 
     .Card{
         width:180px;
-        flex:0 0 180px;
+        margin:8px;
     }
 
     .Card-img{
@@ -95,34 +95,42 @@ body{
 @media (max-width:480px){
 
     .Card{
-        width:170px;
-        flex:0 0 170px;
+        width:100%;
+        margin:0;
         padding:10px;
+        display:flex;
+        flex-direction:column;
+        height:100%;
+        box-sizing:border-box;
     }
 
     .Card-img{
-        height:190px;
+        height:150px;
         width:100%;
         object-fit:cover;
     }
 
     .Card-info{
         padding-top:12px;
+        flex:1;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
     }
 
     .Card-name{
-        font-size:15px;
+        font-size:16px;
         font-weight:600;
         margin:6px 0;
     }
 
     .Card-discount{
-        font-size:17px;
+        font-size:19px;
         margin:6px 0;
     }
 
     .Card-shop{
-        font-size:14px;
+        font-size:15px;
         margin:6px 0;
     }
 
