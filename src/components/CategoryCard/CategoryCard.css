@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -14,7 +16,6 @@
   text-align: center;
   padding: 8px;
   width: 100%;
-  box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-family: "Poppins", sans-serif;
 }
@@ -39,31 +40,44 @@
   font-family: "Cormorant Garamond", serif;
 }
 
-
+/* Large Tablet */
 @media (max-width: 1200px) {
-
   .category-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
   }
 
+  .category-img {
+    height: 180px;
+  }
+
+  .category-name {
+    font-size: 20px;
+  }
 }
 
-
+/* Tablet */
 @media (max-width: 992px) {
-
   .category-grid {
+    grid-template-columns: repeat(4, 1fr);
     gap: 14px;
   }
 
+  .category-img {
+    height: 160px;
+  }
+
+  .category-name {
+    font-size: 18px;
+  }
 }
 
-
+/* Mobile */
 @media (max-width: 768px) {
-
   .category-grid {
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    padding: 14px;
+    padding: 10px;
   }
 
   .category-card {
@@ -71,50 +85,33 @@
   }
 
   .category-img {
-    height: 100px;
+    height: 90px;
   }
 
   .category-name {
-    font-size: 13px;
-    padding: 6px 3px;
+    font-size: 12px;
+    padding: 6px 2px;
   }
-
 }
 
-
+/* Small Mobile */
 @media (max-width: 480px) {
-
   .category-grid {
-    gap: 6px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
     padding: 8px;
   }
 
   .category-card {
     padding: 4px;
-    border-width: 1px;
   }
 
   .category-img {
-    height: 70px;
+    height: 80px;
   }
 
   .category-name {
     font-size: 11px;
     padding: 4px 2px;
   }
-
-}
-
-
-@media (max-width: 360px) {
-
-  .category-img {
-    height: 60px;
-  }
-
-  .category-name {
-    font-size: 10px;
-    padding: 3px 2px;
-  }
-
 }
