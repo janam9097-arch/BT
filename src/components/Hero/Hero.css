@@ -115,13 +115,11 @@
         justify-content: center;
         text-align: center;
         padding: 50px 30px;
-        min-height: auto;
-        aspect-ratio: 1672 / 727;
+        min-height: 65vh;
     }
 
     .hero-bg {
-        object-fit: cover;
-        object-position: center;
+        object-position: center top;
     }
 
     .hero-content {
@@ -148,9 +146,12 @@
 @media (max-width: 480px) {
 
     .hero {
-        padding: 30px 20px;
-        aspect-ratio: 1672 / 727;
-        min-height: 320px;
+        min-height: 60vh;
+        padding: 40px 20px;
+    }
+
+    .hero-bg {
+        object-position: center 25%;
     }
 
     .hero-content {
