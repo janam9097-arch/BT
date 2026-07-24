@@ -108,13 +108,15 @@
     outline-offset: 2px;
 }
 
-
-
+/* ==========================
+   Tablet
+========================== */
 
 @media (max-width: 768px) {
 
     .hero {
         justify-content: center;
+        align-items: center;
         text-align: center;
         padding: 50px 30px;
         min-height: 70vh;
@@ -137,18 +139,29 @@
     .hero-buttons {
         justify-content: center;
     }
-
 }
 
+/* ==========================
+   Mobile
+========================== */
 
 @media (max-width: 480px) {
 
     .hero {
-        min-height: 60vh;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 75vh;
         padding: 40px 20px;
     }
 
+    .hero-bg {
+        object-fit: cover;
+        object-position: center top;
+    }
+
     .hero-content {
+        align-items: center;
         gap: 18px;
     }
 
@@ -175,5 +188,4 @@
         padding: 14px;
         font-size: 15px;
     }
-
 }
