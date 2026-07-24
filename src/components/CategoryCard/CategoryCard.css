@@ -18,6 +18,7 @@
     height: 220px;
     object-fit: cover;
     display: block;
+    border-radius:10px;
 }
 
 .category-name {
@@ -35,6 +36,7 @@
 
     .category-img{
         height:180px;
+        border-radius:10px;
     }
 
     .category-name{
@@ -49,6 +51,7 @@
 
     .category-img{
         height:90px;
+        border-radius:10px;
     }
 
     .category-name{
@@ -64,6 +67,7 @@
 
     .category-img{
         height:60px;
+        border-radius:10px;
     }
 
     .category-name{
