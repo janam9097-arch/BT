@@ -151,7 +151,7 @@ body{
 
     .Nav{
         padding:12px 16px;
-        justify-content:center;
+        justify-content:space-between;
     }
 
     .Nav img{
