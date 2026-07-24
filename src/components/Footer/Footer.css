@@ -85,81 +85,90 @@
     color: #D4AF37;
 }
 
+/* Tablet */
 
+@media (max-width:768px){
 
-@media (max-width: 768px) {
-
-    .foot {
-        padding: 40px 30px 20px;
+    .foot{
+        padding:40px 30px 20px;
     }
 
-    .foot-top {
-        justify-content: space-between;
-        gap: 1.5rem;
+    .foot-top{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        flex-wrap:wrap;
+        gap:2rem;
     }
 
-    .foot-brand {
-        max-width: 100%;
-        text-align: left;
-        align-items: flex-start;
+    .foot-brand{
+        max-width:260px;
     }
 
-    .foot-column {
-        min-width: 130px;
+    .foot-brand img{
+        width:42px;
+        height:42px;
+    }
+
+    .foot-brand p{
+        font-size:13px;
+    }
+
+    .foot-column h4{
+        font-size:13px;
+    }
+
+    .foot-column li{
+        font-size:13px;
+    }
+
+    .foot-bottom{
+        font-size:12px;
     }
 
 }
 
+/* Mobile */
 
+@media (max-width:480px){
 
-@media (max-width: 480px) {
-
-    .foot {
-        padding: 30px 20px;
+    .foot{
+        padding:25px 15px;
     }
 
-    .foot-top {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-start;
-        text-align: left;
-        gap: 1.5rem 1rem;
+    .foot-top{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        flex-wrap:wrap;
+        gap:1.5rem;
     }
 
-    .foot-brand {
-        align-items: flex-start;
-        max-width: 100%;
-        flex: 1 1 100%;
+    .foot-brand{
+        max-width:220px;
     }
 
-    .foot-brand img {
-        width: 40px;
-        height: 40px;
+    .foot-brand img{
+        width:38px;
+        height:38px;
     }
 
-    .foot-brand p {
-        font-size: 12px;
+    .foot-brand p{
+        font-size:12px;
     }
 
-    .foot-column {
-        align-items: flex-start;
-        flex: 1 1 auto;
-        min-width: 100px;
+    .foot-column h4{
+        font-size:12px;
     }
 
-    .foot-column h4 {
-        font-size: 12px;
+    .foot-column li{
+        font-size:12px;
     }
 
-    .foot-column li {
-        font-size: 12px;
-        white-space: normal;
-    }
-
-    .foot-bottom {
-        font-size: 12px;
-        margin-top: 25px;
+    .foot-bottom{
+        margin-top:25px;
+        padding-top:15px;
+        font-size:11px;
     }
 
 }
