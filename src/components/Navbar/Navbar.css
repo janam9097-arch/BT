@@ -25,7 +25,6 @@ body{
     height:45px;
     object-fit:contain;
     cursor:pointer;
-    flex-shrink:0;
 }
 
 .Nav ul{
@@ -54,7 +53,7 @@ body{
     align-items:center;
     border:1px solid #fff;
     border-radius:5px;
-    padding:0 8px;
+    padding:0 10px;
     background:#000;
 }
 
@@ -79,23 +78,28 @@ body{
 
 .actions{
     display:flex;
+    align-items:center;
     gap:10px;
 }
 
-.button{
-    padding:10px 18px;
+.icon-button{
+    width:42px;
+    height:42px;
     border:none;
-    border-radius:25px;
+    border-radius:50%;
     background:#D4AF37;
     color:#000;
-    font-weight:600;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     cursor:pointer;
+    font-size:18px;
     transition:.3s;
-    white-space:nowrap;
 }
 
-.button:hover{
+.icon-button:hover{
     background:#f1c232;
+    transform:translateY(-2px);
 }
 
 /* Tablet */
@@ -103,7 +107,7 @@ body{
 @media (max-width:992px){
 
     .Nav{
-        padding:10px 15px;
+        padding:10px 20px;
         gap:10px;
     }
 
@@ -113,21 +117,22 @@ body{
     }
 
     .Nav ul{
-        gap:12px;
+        gap:15px;
     }
 
     .Nav li{
-        font-size:12px;
+        font-size:13px;
     }
 
     .search{
-        width:140px;
-        font-size:12px;
+        width:170px;
+        font-size:13px;
     }
 
-    .button{
-        padding:7px 10px;
-        font-size:12px;
+    .icon-button{
+        width:36px;
+        height:36px;
+        font-size:16px;
     }
 
 }
@@ -137,24 +142,23 @@ body{
 @media (max-width:600px){
 
     .Nav{
-        padding:6px;
-        gap:4px;
-        flex-wrap:nowrap;
+        padding:8px;
+        gap:6px;
         justify-content:space-between;
         align-items:center;
     }
 
     .Nav img{
-        width:24px;
-        height:24px;
+        width:28px;
+        height:28px;
     }
 
     .Nav ul{
-        gap:5px;
+        gap:8px;
     }
 
     .Nav li{
-        font-size:8px;
+        font-size:10px;
     }
 
     .search-box{
@@ -162,27 +166,24 @@ body{
     }
 
     .search{
-        width:70px;
-        padding:4px 0;
-        font-size:8px;
-    }
-
-    .search::placeholder{
-        font-size:8px;
+        width:90px;
+        font-size:10px;
+        padding:5px 0;
     }
 
     .search-icon{
-        font-size:8px;
+        font-size:10px;
         margin-right:3px;
     }
 
     .actions{
-        gap:3px;
+        gap:4px;
     }
 
-    .button{
-        padding:4px 5px;
-        font-size:8px;
+    .icon-button{
+        width:28px;
+        height:28px;
+        font-size:12px;
     }
 
 }
