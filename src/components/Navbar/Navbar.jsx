@@ -17,7 +17,7 @@ function Navbar() {
 
              <input
               type="text"
-              placeholder="Search for Products, Brand and More"
+              placeholder="Search"
               className="search"
               aria-label="Search products"
                           />

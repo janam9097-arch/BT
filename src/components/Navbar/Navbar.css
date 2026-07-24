@@ -14,7 +14,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 50px;
+    padding:15px 40px;
     background:#000;
     border-bottom:1px solid #333;
     gap:20px;
@@ -25,6 +25,7 @@ body{
     height:45px;
     object-fit:contain;
     cursor:pointer;
+    flex-shrink:0;
 }
 
 .Nav ul{
@@ -53,22 +54,8 @@ body{
     align-items:center;
     border:1px solid #fff;
     border-radius:5px;
-    padding:0 10px;
+    padding:0 8px;
     background:#000;
-}
-
-.search{
-    width:280px;
-    padding:10px;
-    border:none;
-    outline:none;
-    background:transparent;
-    color:#fff;
-    font-size:15px;
-}
-
-.search::placeholder{
-    color:#ddd;
 }
 
 .search-icon{
@@ -76,13 +63,22 @@ body{
     margin-right:8px;
 }
 
-.search-box:focus-within{
-    border-color:#D4AF37;
+.search{
+    width:260px;
+    padding:10px 0;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#fff;
+    font-size:14px;
+}
+
+.search::placeholder{
+    color:#ccc;
 }
 
 .actions{
     display:flex;
-    align-items:center;
     gap:10px;
 }
 
@@ -95,6 +91,7 @@ body{
     font-weight:600;
     cursor:pointer;
     transition:.3s;
+    white-space:nowrap;
 }
 
 .button:hover{
@@ -103,80 +100,89 @@ body{
 
 /* Tablet */
 
-@media(max-width:992px){
+@media (max-width:992px){
 
     .Nav{
-        padding:12px 20px;
+        padding:10px 15px;
         gap:10px;
     }
 
     .Nav img{
-        width:40px;
-        height:40px;
+        width:36px;
+        height:36px;
     }
 
     .Nav ul{
-        gap:15px;
+        gap:12px;
     }
 
     .Nav li{
-        font-size:13px;
+        font-size:12px;
     }
 
     .search{
-        width:180px;
-        font-size:13px;
+        width:140px;
+        font-size:12px;
     }
 
     .button{
-        padding:8px 14px;
-        font-size:13px;
+        padding:7px 10px;
+        font-size:12px;
     }
 
 }
 
 /* Mobile */
 
-@media(max-width:600px){
+@media (max-width:600px){
 
     .Nav{
-        padding:8px;
-        gap:6px;
+        padding:6px;
+        gap:4px;
+        flex-wrap:nowrap;
         justify-content:space-between;
         align-items:center;
     }
 
     .Nav img{
-        width:30px;
-        height:30px;
+        width:24px;
+        height:24px;
     }
 
     .Nav ul{
-        gap:8px;
+        gap:5px;
     }
 
     .Nav li{
-        font-size:10px;
+        font-size:8px;
     }
 
     .search-box{
-        padding:0 5px;
+        padding:0 4px;
     }
 
     .search{
-        width:90px;
-        padding:6px;
-        font-size:10px;
+        width:70px;
+        padding:4px 0;
+        font-size:8px;
+    }
+
+    .search::placeholder{
+        font-size:8px;
     }
 
     .search-icon{
-        font-size:10px;
-        margin-right:4px;
+        font-size:8px;
+        margin-right:3px;
+    }
+
+    .actions{
+        gap:3px;
     }
 
     .button{
-        padding:5px 8px;
-        font-size:10px;
+        padding:4px 5px;
+        font-size:8px;
     }
 
 }
