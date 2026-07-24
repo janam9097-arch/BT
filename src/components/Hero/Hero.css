@@ -108,18 +108,18 @@
     outline-offset: 2px;
 }
 
-/* ==========================
-   Tablet
-========================== */
 
 @media (max-width: 768px) {
 
     .hero {
         justify-content: center;
-        align-items: center;
         text-align: center;
         padding: 50px 30px;
-        min-height: 70vh;
+        min-height: 65vh;
+    }
+
+    .hero-bg {
+        object-position: center top;
     }
 
     .hero-content {
@@ -139,29 +139,22 @@
     .hero-buttons {
         justify-content: center;
     }
+
 }
 
-/* ==========================
-   Mobile
-========================== */
 
 @media (max-width: 480px) {
 
     .hero {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        min-height: 75vh;
+        min-height: 60vh;
         padding: 40px 20px;
     }
 
     .hero-bg {
-        object-fit: cover;
-        object-position: center top;
+        object-position: center 25%;
     }
 
     .hero-content {
-        align-items: center;
         gap: 18px;
     }
 
@@ -188,4 +181,5 @@
         padding: 14px;
         font-size: 15px;
     }
+
 }
