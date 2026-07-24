@@ -1,7 +1,7 @@
 .foot {
     display: flex;
     flex-direction: column;
-    padding: 50px 50px 25px;
+    padding: 50px 60px 25px;
     background-color: #000;
     border-top: 1px solid #333;
 }
@@ -43,7 +43,7 @@
     color: #aaa;
     font-family: "Poppins", sans-serif;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .foot-column {
@@ -66,6 +66,8 @@
     flex-direction: column;
     list-style: none;
     gap: 10px;
+    padding: 0;
+    margin: 0;
 }
 
 .foot-column li {
@@ -83,17 +85,75 @@
     color: #D4AF37;
 }
 
-@media (max-width: 700px) {
+
+
+@media (max-width: 768px) {
+
     .foot {
-        padding: 30px 30px 20px;
+        padding: 40px 30px 20px;
     }
 
     .foot-top {
-        flex-direction: column;
+        justify-content: center;
         gap: 2rem;
     }
 
     .foot-brand {
         max-width: 100%;
+        text-align: center;
+        align-items: center;
     }
+
+    .foot-column {
+        min-width: 160px;
+    }
+
+}
+
+
+
+@media (max-width: 480px) {
+
+    .foot {
+        padding: 30px 20px;
+    }
+
+    .foot-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .foot-brand {
+        align-items: center;
+    }
+
+    .foot-brand img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .foot-brand p {
+        font-size: 12px;
+    }
+
+    .foot-column {
+        align-items: center;
+    }
+
+    .foot-column h4 {
+        font-size: 13px;
+    }
+
+    .foot-column li {
+        font-size: 13px;
+        white-space: normal;
+    }
+
+    .foot-bottom {
+        font-size: 12px;
+        margin-top: 25px;
+    }
+
 }

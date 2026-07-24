@@ -1,7 +1,6 @@
-
 .products-section {
   padding: 50px 80px;
-  background-color: #000000;
+  background-color: #000;
 }
 
 .section-title {
@@ -27,4 +26,45 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
+}
+
+
+@media (max-width: 768px) {
+
+  .products-section {
+    padding: 40px 30px;
+  }
+
+  .section-title {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+
+  .products-grid {
+    gap: 20px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .products-section {
+    padding: 30px 15px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    margin-bottom: 25px;
+  }
+
+  .section-title::after {
+    width: 60px;
+  }
+
+  .products-grid {
+    gap: 15px;
+    justify-content: center;
+  }
+
 }
