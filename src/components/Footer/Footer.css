@@ -1,156 +1,140 @@
-.foot {
-    display: flex;
-    flex-direction: column;
-    padding: 50px 60px 25px;
-    background-color: #000;
-    border-top: 1px solid #333;
+.foot{
+    display:flex;
+    flex-direction:column;
+    padding:50px 60px 25px;
+    background:#000;
+    border-top:1px solid #333;
 }
 
-.foot-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 3rem;
+.foot-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:3rem;
 }
 
-.foot-bottom {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #222;
-    color: #888;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    text-align: center;
-    letter-spacing: 0.5px;
+.foot-bottom{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid #222;
+    color:#888;
+    font-family:"Poppins",sans-serif;
+    font-size:13px;
+    text-align:center;
+    letter-spacing:.5px;
 }
 
-.foot-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 260px;
+.foot-brand{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:260px;
+    flex-shrink:0;
 }
 
-.foot-brand img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    cursor: pointer;
+.foot-brand img{
+    width:45px;
+    height:45px;
+    object-fit:contain;
 }
 
-.foot-brand p {
-    color: #aaa;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    line-height: 1.6;
+.foot-brand p{
+    color:#aaa;
+    font-family:"Poppins",sans-serif;
+    font-size:13px;
+    line-height:1.6;
 }
 
-.foot-column {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.foot-column{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    flex-shrink:0;
 }
 
-.foot-column h4 {
-    color: #D4AF37;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.foot-column h4{
+    color:#D4AF37;
+    font-family:"Poppins",sans-serif;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
 }
 
-.foot-column ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    gap: 10px;
-    padding: 0;
-    margin: 0;
+.foot-column ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin:0;
+    padding:0;
 }
 
-.foot-column li {
-    color: #fff;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    white-space: nowrap;
+.foot-column li{
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    font-size:14px;
+    cursor:pointer;
+    white-space:nowrap;
 }
 
-.foot-column li:hover {
-    color: #D4AF37;
+.foot-column li:hover{
+    color:#D4AF37;
 }
 
 /* Tablet */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     .foot{
-        padding:40px 30px 20px;
+        padding:40px 25px;
     }
 
     .foot-top{
         display:flex;
         justify-content:space-between;
         align-items:flex-start;
-        flex-wrap:wrap;
-        gap:2rem;
+        flex-wrap:nowrap;
+        gap:20px;
+        overflow-x:auto;
     }
 
-    .foot-brand{
-        max-width:260px;
-    }
-
-    .foot-brand img{
-        width:42px;
-        height:42px;
-    }
-
-    .foot-brand p{
-        font-size:13px;
-    }
-
-    .foot-column h4{
-        font-size:13px;
-    }
-
-    .foot-column li{
-        font-size:13px;
-    }
-
-    .foot-bottom{
-        font-size:12px;
+    .foot-brand,
+    .foot-column{
+        flex:0 0 auto;
     }
 
 }
 
 /* Mobile */
 
-@media (max-width:480px){
+@media(max-width:480px){
 
     .foot{
-        padding:25px 15px;
+        padding:30px 15px;
     }
 
     .foot-top{
         display:flex;
         justify-content:space-between;
         align-items:flex-start;
-        flex-wrap:wrap;
-        gap:1.5rem;
+        flex-wrap:nowrap;
+        gap:20px;
+        overflow-x:auto;
+        scrollbar-width:none;
     }
 
-    .foot-brand{
-        max-width:220px;
+    .foot-top::-webkit-scrollbar{
+        display:none;
+    }
+
+    .foot-brand,
+    .foot-column{
+        flex:0 0 auto;
     }
 
     .foot-brand img{
-        width:38px;
-        height:38px;
+        width:40px;
+        height:40px;
     }
 
     .foot-brand p{
@@ -158,7 +142,7 @@
     }
 
     .foot-column h4{
-        font-size:12px;
+        font-size:13px;
     }
 
     .foot-column li{
@@ -167,8 +151,7 @@
 
     .foot-bottom{
         margin-top:25px;
-        padding-top:15px;
-        font-size:11px;
+        font-size:12px;
     }
 
 }
