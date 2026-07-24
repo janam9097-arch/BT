@@ -1,0 +1,30 @@
+.categories-section {
+    padding: 60px 80px;
+    background: #000;
+}
+
+.categories-section h2 {
+    text-align: center;
+  font-size: 36px;
+  font-family: "Cormorant Garamond", serif;
+  color: white;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.categories-section h2::after {
+    
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #D4AF37;
+  margin: 10px auto 0;
+}
+
+.categories-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}

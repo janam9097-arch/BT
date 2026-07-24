@@ -1,0 +1,30 @@
+
+.products-section {
+  padding: 50px 80px;
+  background-color: #000000;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  font-family: "Cormorant Garamond", serif;
+  color: white;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #D4AF37;
+  margin: 10px auto 0;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}

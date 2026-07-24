@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.Card {
+  background-color: #000000;
+  border: 2px solid #f4c896;
+  border-radius: 4px;
+  text-align: center;
+  padding: 8px;
+  margin: 10px;
+  width: 220px;
+  display: inline-block;
+  vertical-align: top;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.Card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.Card-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius:1px;
+}
+
+.Card-info {
+  padding-top: 10px;
+}
+
+.Card-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  margin: 4px 0;
+  letter-spacing: 0.3px;
+}
+
+.Card-discount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #D4AF37;
+  margin: 4px 0;
+}
+
+.Card-shop {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.Card-shop:hover {
+  color: #D4AF37;
+}
