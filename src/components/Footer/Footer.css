@@ -29,7 +29,6 @@
     flex-direction:column;
     gap:12px;
     max-width:260px;
-    flex-shrink:0;
 }
 
 .foot-brand img{
@@ -48,8 +47,7 @@
 .foot-column{
     display:flex;
     flex-direction:column;
-    gap:14px;
-    flex-shrink:0;
+    gap:12px;
 }
 
 .foot-column h4{
@@ -62,11 +60,11 @@
 
 .foot-column ul{
     list-style:none;
+    padding:0;
+    margin:0;
     display:flex;
     flex-direction:column;
-    gap:10px;
-    margin:0;
-    padding:0;
+    gap:8px;
 }
 
 .foot-column li{
@@ -74,6 +72,7 @@
     font-family:"Poppins",sans-serif;
     font-size:14px;
     cursor:pointer;
+    transition:.3s;
     white-space:nowrap;
 }
 
@@ -83,75 +82,92 @@
 
 /* Tablet */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
     .foot{
-        padding:40px 25px;
+        padding:35px 20px;
     }
 
     .foot-top{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        flex-wrap:nowrap;
-        gap:20px;
-        overflow-x:auto;
+        gap:16px;
     }
 
-    .foot-brand,
-    .foot-column{
-        flex:0 0 auto;
+    .foot-brand{
+        max-width:170px;
+    }
+
+    .foot-brand img{
+        width:36px;
+        height:36px;
+    }
+
+    .foot-brand p{
+        font-size:11px;
+    }
+
+    .foot-column h4{
+        font-size:12px;
+    }
+
+    .foot-column li{
+        font-size:11px;
     }
 
 }
 
 /* Mobile */
 
-@media(max-width:480px){
+@media (max-width:480px){
 
     .foot{
-        padding:30px 15px;
+        padding:20px 8px;
     }
 
     .foot-top{
         display:flex;
         justify-content:space-between;
         align-items:flex-start;
+        gap:8px;
         flex-wrap:nowrap;
-        gap:20px;
-        overflow-x:auto;
-        scrollbar-width:none;
     }
 
-    .foot-top::-webkit-scrollbar{
-        display:none;
-    }
-
-    .foot-brand,
-    .foot-column{
-        flex:0 0 auto;
+    .foot-brand{
+        max-width:85px;
+        gap:5px;
     }
 
     .foot-brand img{
-        width:40px;
-        height:40px;
+        width:26px;
+        height:26px;
     }
 
     .foot-brand p{
-        font-size:12px;
+        font-size:8px;
+        line-height:1.2;
+    }
+
+    .foot-column{
+        gap:5px;
     }
 
     .foot-column h4{
-        font-size:13px;
+        font-size:9px;
+        letter-spacing:0;
+    }
+
+    .foot-column ul{
+        gap:3px;
     }
 
     .foot-column li{
-        font-size:12px;
+        font-size:8px;
+        white-space:nowrap;
     }
 
     .foot-bottom{
-        margin-top:25px;
-        font-size:12px;
+        margin-top:15px;
+        padding-top:10px;
+        font-size:8px;
     }
 
 }
