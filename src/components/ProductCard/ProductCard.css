@@ -63,17 +63,17 @@ body {
   color: #D4AF37;
 }
 
-
+/* Tablet */
 
 @media (max-width: 768px) {
 
   .Card {
-    width: 180px;
-    margin: 8px;
+    width: 160px;
+    margin: 6px;
   }
 
   .Card-img {
-    height: 220px;
+    height: 180px;
   }
 
   .Card-name {
@@ -81,7 +81,7 @@ body {
   }
 
   .Card-discount {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .Card-shop {
@@ -90,35 +90,39 @@ body {
 
 }
 
-
+/* Mobile - 3 cards per row */
 
 @media (max-width: 480px) {
 
   .Card {
-    width: 100%;
-    max-width: 280px;
-    margin: 12px auto;
-    display: block;
+    width: 31%;
+    margin: 1%;
+    padding: 4px;
+    display: inline-block;
+    vertical-align: top;
   }
 
   .Card-img {
-    height: 260px;
+    height: 90px;
   }
 
   .Card-info {
-    padding-top: 10px;
+    padding-top: 6px;
   }
 
   .Card-name {
-    font-size: 16px;
+    font-size: 10px;
+    margin: 3px 0;
   }
 
   .Card-discount {
-    font-size: 18px;
+    font-size: 11px;
+    margin: 3px 0;
   }
 
   .Card-shop {
-    font-size: 14px;
+    font-size: 10px;
+    margin: 3px 0;
   }
 
 }
