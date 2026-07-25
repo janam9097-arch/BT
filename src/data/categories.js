@@ -21,37 +21,37 @@ const categories = [
   },
   {
     id: 5,
-    name: "Health & Wellness",
+    name: "Grocery & Essentials",
     image: "https://picsum.photos/300/220?5",
   },
   {
     id: 6,
-    name: "Grocery & Essentials",
+    name: "Health & Wellness",
     image: "https://picsum.photos/300/220?6",
   },
   {
     id: 7,
-    name: "Baby & Kids",
+    name: "Sports & Fitness",
     image: "https://picsum.photos/300/220?7",
   },
   {
     id: 8,
-    name: "Books & Stationery",
+    name: "Jewelry & Accessories",
     image: "https://picsum.photos/300/220?8",
   },
   {
     id: 9,
-    name: "Automotive",
+    name: "Books & Stationery",
     image: "https://picsum.photos/300/220?9",
   },
   {
     id: 10,
-    name: "Jewelry & Accessories",
+    name: "Baby & Kids",
     image: "https://picsum.photos/300/220?10",
   },
   {
     id: 11,
-    name: "Sports & Fitness",
+    name: "Automotive",
     image: "https://picsum.photos/300/220?11",
   },
   {
