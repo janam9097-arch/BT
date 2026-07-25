@@ -5,14 +5,11 @@ import categories from "../../data/categories";
 function Categories() {
   return (
     <section className="categories-section">
-     
-
-      <div className="categories-grid">
+      <div className="categories-slider">
         {categories.map((category) => (
-          <CategoryCard
-            key={category.id}
-            category={category}
-          />
+          <div className="category-item" key={category.id}>
+            <CategoryCard category={category} />
+          </div>
         ))}
       </div>
     </section>
