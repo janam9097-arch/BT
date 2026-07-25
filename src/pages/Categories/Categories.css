@@ -28,21 +28,25 @@
 /* Laptop */
 @media (max-width: 1200px) {
   .categories-section {
-    padding: 50px 40px;
+    padding: 40px;
+  }
+
+  .category-item {
+    flex: 0 0 calc((100% - 40px) / 3);
+    min-width: calc((100% - 40px) / 3);
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .categories-section {
-    padding: 30px 20px;
+    padding: 25px;
   }
 
   .categories-slider {
     gap: 15px;
   }
 
-  /* SAME AS DESKTOP */
   .category-item {
     flex: 0 0 calc((100% - 30px) / 3);
     min-width: calc((100% - 30px) / 3);
@@ -52,14 +56,13 @@
 /* Mobile */
 @media (max-width: 480px) {
   .categories-section {
-    padding: 20px 10px;
+    padding: 15px;
   }
 
   .categories-slider {
     gap: 10px;
   }
 
-  /* SAME AS DESKTOP */
   .category-item {
     flex: 0 0 calc((100% - 20px) / 3);
     min-width: calc((100% - 20px) / 3);
