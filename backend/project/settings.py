@@ -141,8 +141,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # --- CORS & CSRF Configuration ---
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -160,12 +161,23 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.github.io",
 ]
 
-# Add Railway domain to CORS & CSRF if set
-_RAILWAY_URL = os.getenv('RAILWAY_PUBLIC_DOMAIN')
-if _RAILWAY_URL:
-    _full = f"https://{_RAILWAY_URL}"
-    CORS_ALLOWED_ORIGINS.append(_full)
-    CSRF_TRUSTED_ORIGINS.append(_full)
+# Railway support
+railway_domain = os.getenv("RAILWAY_PUBLIC_DOMAIN")
+if railway_domain:
+    railway_url = f"https://{railway_domain}"
+    if railway_url not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(railway_url)
+    if railway_url not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(railway_url)
+
+# Render support
+render_domain = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if render_domain:
+    render_url = f"https://{render_domain}"
+    if render_url not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(render_url)
+    if render_url not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(render_url)
 
 # --- REST Framework ---
 REST_FRAMEWORK = {
