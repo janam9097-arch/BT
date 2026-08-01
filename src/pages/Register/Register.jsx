@@ -23,16 +23,16 @@ function Register() {
 
   const parseErrorResponse = (err) => {
     if (!err.response || err.code === "ERR_NETWORK") {
-      return "Unable to connect to the authentication server (http://127.0.0.1:8000). Please check if the Django backend is running.";
+      return "Unable to connect to the authentication server. Please try again later.";
     }
 
     const resData = err.response.data;
     if (!resData) {
-      return `Registration failed (${err.response.status}: ${err.response.statusText || "Server error"}).`;
+      return "Unable to connect to the authentication server. Please try again later.";
     }
 
     if (typeof resData === "string") {
-      return `Server error (${err.response.status}). Please check backend logs.`;
+      return "Unable to connect to the authentication server. Please try again later.";
     }
 
     if (typeof resData === "object") {
@@ -41,18 +41,24 @@ function Register() {
 
       const messages = [];
       for (const [key, val] of Object.entries(resData)) {
-        const fieldName = key.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
         const valText = Array.isArray(val) ? val.join(" ") : String(val);
-        if (key === "non_field_errors" || key === "detail") {
-          messages.push(valText);
+        const lowerVal = valText.toLowerCase();
+        
+        if (lowerVal.includes("email address already exists") || lowerVal.includes("email already exists")) {
+          messages.push("Email already exists.");
+        } else if (lowerVal.includes("username already exists")) {
+          messages.push("Username already exists.");
+        } else if (lowerVal.includes("too short") || lowerVal.includes("too common") || lowerVal.includes("entirely numeric") || lowerVal.includes("weak")) {
+          messages.push("Password is too weak.");
         } else {
+          const fieldName = key.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
           messages.push(`${fieldName}: ${valText}`);
         }
       }
       return messages.join(" | ") || "Registration failed. Please check your entries.";
     }
 
-    return "Registration failed.";
+    return "Unable to connect to the authentication server. Please try again later.";
   };
 
   const handleSubmit = async (e) => {
@@ -67,7 +73,7 @@ function Register() {
     try {
       setSubmitting(true);
       await register(formData);
-      navigate("/profile");
+      navigate("/");
     } catch (err) {
       console.error("Registration submit error:", err);
       const parsedMsg = parseErrorResponse(err);
