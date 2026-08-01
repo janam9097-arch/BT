@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+import urllib.parse
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,22 +74,43 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 # --- Database Configuration ---
-# Railway provides MYSQL_URL or individual MYSQL_* vars.
-# Falls back to local MySQL for development.
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQLDB_DATABASE', os.getenv('DB_NAME', 'ecommerce_db')),
-        'USER': os.getenv('MYSQLUSER', os.getenv('DB_USER', 'root')),
-        'PASSWORD': os.getenv('MYSQLPASSWORD', os.getenv('DB_PASSWORD', '')),
-        'HOST': os.getenv('MYSQLHOST', os.getenv('DB_HOST', '127.0.0.1')),
-        'PORT': os.getenv('MYSQLPORT', os.getenv('DB_PORT', '3306')),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+# Supports MYSQL_URL / DATABASE_URL, individual Railway vars, or fallback to local MySQL
+db_url = os.getenv('DATABASE_URL') or os.getenv('MYSQL_URL') or os.getenv('MYSQL_PRIVATE_URL')
+
+if db_url:
+    # Handle mysql:// or mysql2:// scheme
+    if db_url.startswith('mysql2://'):
+        db_url = db_url.replace('mysql2://', 'mysql://', 1)
+    url = urllib.parse.urlparse(db_url)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': url.path.lstrip('/'),
+            'USER': url.username or '',
+            'PASSWORD': urllib.parse.unquote(url.password or ''),
+            'HOST': url.hostname or '127.0.0.1',
+            'PORT': str(url.port or 3306),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('MYSQLDATABASE') or os.getenv('MYSQLDB_DATABASE') or os.getenv('MYSQL_DATABASE') or os.getenv('DB_NAME', 'ecommerce_db'),
+            'USER': os.getenv('MYSQLUSER') or os.getenv('MYSQL_USER') or os.getenv('DB_USER', 'root'),
+            'PASSWORD': os.getenv('MYSQLPASSWORD') or os.getenv('MYSQL_PASSWORD') or os.getenv('DB_PASSWORD', ''),
+            'HOST': os.getenv('MYSQLHOST') or os.getenv('MYSQL_HOST') or os.getenv('DB_HOST', '127.0.0.1'),
+            'PORT': os.getenv('MYSQLPORT') or os.getenv('MYSQL_PORT') or os.getenv('DB_PORT', '3306'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }
 
 AUTH_USER_MODEL = 'users.User'
 
