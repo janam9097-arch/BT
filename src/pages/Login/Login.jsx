@@ -21,7 +21,11 @@ function Login() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid email or password.");
+      if (!err.response || err.code === "ERR_NETWORK") {
+        setError("Unable to connect to the authentication server.");
+      } else {
+        setError(err.response?.data?.detail || err.response?.data?.message || "Invalid email or password.");
+      }
     } finally {
       setSubmitting(false);
     }
@@ -32,7 +36,7 @@ function Login() {
       <h2 style={{ textAlign: "center", color: "#D4AF37", marginBottom: "25px" }}>Welcome Back</h2>
 
       {error && (
-        <div style={{ background: "rgba(255,0,0,0.2)", border: "1px solid red", color: "#ff6b6b", padding: "10px", borderRadius: "4px", marginBottom: "20px" }}>
+        <div style={{ background: "rgba(255,0,0,0.15)", border: "1px solid #ff4d4d", color: "#ff6b6b", padding: "12px", borderRadius: "6px", marginBottom: "20px", fontSize: "14px", lineHeight: "1.4" }}>
           {error}
         </div>
       )}
