@@ -12,7 +12,10 @@ load_dotenv(BASE_DIR / '.env')
 # --- Security ---
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-b3wdiisy&rvxl@o8-xc+5+n-^$ot+sr7cg%+7k43s5yf)(_r$x')
 DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1,.onrender.com,.railway.app,*"
+).split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
