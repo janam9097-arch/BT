@@ -7,7 +7,6 @@ Pillow>=10.2.0
 django-filter>=24.1
 stripe>=8.0.0
 razorpay>=1.4.0
-mysqlclient>=2.2.0
 pymysql>=1.1.0
 gunicorn>=22.0.0
 whitenoise>=6.5.0
