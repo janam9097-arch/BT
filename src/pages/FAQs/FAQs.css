@@ -1,0 +1,131 @@
+.faqs-page {
+  min-height: 80vh;
+  padding: 50px 20px;
+  background: #000;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faqs-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.faqs-header h1 {
+  color: #D4AF37;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.faqs-header p {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.faqs-search {
+  margin-bottom: 30px;
+}
+
+.faqs-search input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 14px 20px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.faqs-search input:focus {
+  border-color: #D4AF37;
+}
+
+.faqs-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.faqs-tab {
+  background: #111;
+  color: #aaa;
+  border: 1px solid #222;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.faqs-tab.active,
+.faqs-tab:hover {
+  background: #D4AF37;
+  color: #000;
+  border-color: #D4AF37;
+  font-weight: 600;
+}
+
+.faqs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-item {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.faq-item.open {
+  border-color: #D4AF37;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #fff;
+  user-select: none;
+}
+
+.faq-icon {
+  color: #D4AF37;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.faq-answer {
+  padding: 0 20px 18px;
+  color: #aaa;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  border-top: 1px solid #1a1a1a;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+  .faqs-page {
+    padding: 30px 15px;
+  }
+}

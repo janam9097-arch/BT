@@ -33,15 +33,41 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['email', 'username', 'password', 'password_confirm', 'first_name', 'last_name', 'phone_number']
 
+    def validate_email(self, value):
+        normalized = value.strip().lower()
+        if User.objects.filter(email__iexact=normalized).exists():
+            raise serializers.ValidationError("A user with this email address already exists.")
+        return normalized
+
+    def validate_username(self, value):
+        cleaned = value.strip()
+        if User.objects.filter(username__iexact=cleaned).exists():
+            raise serializers.ValidationError("A user with this username already exists.")
+        return cleaned
+
     def validate(self, attrs):
-        if attrs['password'] != attrs['password_confirm']:
-            raise serializers.ValidationError({"password": "Password fields do not match."})
+        if attrs.get('password') != attrs.get('password_confirm'):
+            raise serializers.ValidationError({"password_confirm": "Password fields do not match."})
         return attrs
 
     def create(self, validated_data):
         validated_data.pop('password_confirm')
-        user = User.objects.create_user(**validated_data)
-        Profile.objects.create(user=user)
+        email = validated_data.get('email')
+        username = validated_data.get('username')
+        password = validated_data.get('password')
+        first_name = validated_data.get('first_name', '')
+        last_name = validated_data.get('last_name', '')
+        phone_number = validated_data.get('phone_number', '')
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number
+        )
+        Profile.objects.get_or_create(user=user)
         return user
 
 class ChangePasswordSerializer(serializers.Serializer):

@@ -22,6 +22,13 @@ import Checkout from "./pages/Checkout/Checkout";
 import Orders from "./pages/Orders/Orders";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
 
+// Customer Care & Footer Pages
+import TrackOrder from "./pages/TrackOrder/TrackOrder";
+import Returns from "./pages/Returns/Returns";
+import Shipping from "./pages/Shipping/Shipping";
+import FAQs from "./pages/FAQs/FAQs";
+import StoreLocator from "./pages/StoreLocator/StoreLocator";
+
 function App() {
   return (
     <Router basename={import.meta.env.BASE_URL} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -40,6 +47,13 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/cart" element={<Cart />} />
+
+                {/* Footer & Customer Care Routes */}
+                <Route path="/track-order" element={<TrackOrder />} />
+                <Route path="/returns" element={<Returns />} />
+                <Route path="/shipping" element={<Shipping />} />
+                <Route path="/faqs" element={<FAQs />} />
+                <Route path="/store-locator" element={<StoreLocator />} />
 
                 {/* Protected Routes */}
                 <Route

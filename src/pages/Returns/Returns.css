@@ -1,0 +1,158 @@
+.returns-page {
+  min-height: 80vh;
+  padding: 50px 20px;
+  background: #000;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.returns-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.returns-header h1 {
+  color: #D4AF37;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.returns-header p {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.returns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.returns-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.returns-card h2 {
+  color: #D4AF37;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 10px;
+}
+
+.policy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.policy-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.policy-icon {
+  color: #D4AF37;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.policy-text h4 {
+  font-size: 0.95rem;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.policy-text p {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+.returns-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.returns-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.returns-form-group label {
+  color: #D4AF37;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.returns-form-group input,
+.returns-form-group select,
+.returns-form-group textarea {
+  background: #181818;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px 14px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.returns-form-group input:focus,
+.returns-form-group select:focus,
+.returns-form-group textarea:focus {
+  border-color: #D4AF37;
+}
+
+.returns-btn {
+  background: #D4AF37;
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.returns-btn:hover {
+  background: #f0c441;
+}
+
+.returns-success-alert {
+  background: rgba(78, 216, 123, 0.1);
+  border: 1px solid #4ed87b;
+  color: #4ed87b;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .returns-grid {
+    grid-template-columns: 1fr;
+  }
+}

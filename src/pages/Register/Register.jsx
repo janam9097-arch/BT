@@ -21,27 +21,57 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const parseErrorResponse = (err) => {
+    if (!err.response || err.code === "ERR_NETWORK") {
+      return "Unable to connect to the authentication server (http://127.0.0.1:8000). Please check if the Django backend is running.";
+    }
+
+    const resData = err.response.data;
+    if (!resData) {
+      return `Registration failed (${err.response.status}: ${err.response.statusText || "Server error"}).`;
+    }
+
+    if (typeof resData === "string") {
+      return `Server error (${err.response.status}). Please check backend logs.`;
+    }
+
+    if (typeof resData === "object") {
+      if (resData.detail) return resData.detail;
+      if (resData.message) return resData.message;
+
+      const messages = [];
+      for (const [key, val] of Object.entries(resData)) {
+        const fieldName = key.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+        const valText = Array.isArray(val) ? val.join(" ") : String(val);
+        if (key === "non_field_errors" || key === "detail") {
+          messages.push(valText);
+        } else {
+          messages.push(`${fieldName}: ${valText}`);
+        }
+      }
+      return messages.join(" | ") || "Registration failed. Please check your entries.";
+    }
+
+    return "Registration failed.";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     if (formData.password !== formData.password_confirm) {
       setError("Passwords do not match.");
       return;
     }
+
     try {
       setSubmitting(true);
       await register(formData);
       navigate("/profile");
     } catch (err) {
-      const errRes = err.response?.data;
-      if (errRes && typeof errRes === "object") {
-        const msg = Object.entries(errRes)
-          .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(", ") : v}`)
-          .join(" | ");
-        setError(msg);
-      } else {
-        setError("Registration failed.");
-      }
+      console.error("Registration submit error:", err);
+      const parsedMsg = parseErrorResponse(err);
+      setError(parsedMsg);
     } finally {
       setSubmitting(false);
     }
@@ -52,7 +82,7 @@ function Register() {
       <h2 style={{ textAlign: "center", color: "#D4AF37", marginBottom: "25px" }}>Create VIP Account</h2>
 
       {error && (
-        <div style={{ background: "rgba(255,0,0,0.2)", border: "1px solid red", color: "#ff6b6b", padding: "10px", borderRadius: "4px", marginBottom: "20px" }}>
+        <div style={{ background: "rgba(255,0,0,0.15)", border: "1px solid #ff4d4d", color: "#ff6b6b", padding: "12px", borderRadius: "6px", marginBottom: "20px", fontSize: "14px", lineHeight: "1.4" }}>
           {error}
         </div>
       )}

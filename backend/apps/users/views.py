@@ -1,3 +1,4 @@
+import logging
 from rest_framework import status, generics, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,6 +12,7 @@ from .serializers import (
     ForgotPasswordSerializer, ResetPasswordSerializer
 )
 
+logger = logging.getLogger(__name__)
 User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
@@ -20,15 +22,26 @@ class RegisterView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'user': UserSerializer(user, context=self.get_serializer_context()).data,
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'message': 'User registered successfully.'
-        }, status=status.HTTP_201_CREATED)
+        if not serializer.is_valid():
+            logger.warning(f"Registration validation errors: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = serializer.save()
+            refresh = RefreshToken.for_user(user)
+            logger.info(f"User created successfully: {user.email}")
+            return Response({
+                'user': UserSerializer(user, context=self.get_serializer_context()).data,
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'message': 'User registered successfully.'
+            }, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            logger.error(f"Backend registration error: {str(e)}", exc_info=True)
+            return Response(
+                {'detail': f"Registration failed due to a server error: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer

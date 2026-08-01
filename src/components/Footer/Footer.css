@@ -31,6 +31,10 @@
     max-width:260px;
 }
 
+.foot-brand a{
+    display:inline-block;
+}
+
 .foot-brand img{
     width:45px;
     height:45px;
@@ -42,6 +46,80 @@
     font-family:"Poppins",sans-serif;
     font-size:13px;
     line-height:1.6;
+}
+
+.foot-newsletter{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-top:4px;
+}
+
+.foot-newsletter-input-wrap{
+    display:flex;
+    align-items:center;
+    border:1px solid #333;
+    border-radius:4px;
+    overflow:hidden;
+    background:#111;
+    transition:border-color .3s;
+}
+
+.foot-newsletter-input-wrap:focus-within{
+    border-color:#D4AF37;
+}
+
+.foot-newsletter-input-wrap input{
+    flex:1;
+    min-width:0;
+    background:transparent;
+    border:none;
+    padding:8px 10px;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    font-size:12px;
+    outline:none;
+}
+
+.foot-newsletter-input-wrap input::placeholder{
+    color:#666;
+}
+
+.foot-newsletter-input-wrap button{
+    background:#D4AF37;
+    color:#000;
+    border:none;
+    padding:8px 14px;
+    font-family:"Poppins",sans-serif;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .3s;
+    white-space:nowrap;
+}
+
+.foot-newsletter-input-wrap button:hover:not(:disabled){
+    background:#f0c441;
+}
+
+.foot-newsletter-input-wrap button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.foot-newsletter-msg{
+    font-family:"Poppins",sans-serif;
+    font-size:11px;
+    line-height:1.3;
+    margin-top:2px;
+}
+
+.foot-newsletter-success{
+    color:#4ed87b;
+}
+
+.foot-newsletter-error{
+    color:#ff5e5e;
 }
 
 .foot-column{
@@ -76,7 +154,15 @@
     white-space:nowrap;
 }
 
-.foot-column li:hover{
+.foot-column li a{
+    color:inherit;
+    text-decoration:none;
+    transition:.3s;
+    display:inline-block;
+}
+
+.foot-column li:hover,
+.foot-column li a:hover{
     color:#D4AF37;
 }
 
@@ -103,6 +189,20 @@
 
     .foot-brand p{
         font-size:11px;
+    }
+
+    .foot-newsletter-input-wrap input{
+        padding:6px 8px;
+        font-size:11px;
+    }
+
+    .foot-newsletter-input-wrap button{
+        padding:6px 10px;
+        font-size:11px;
+    }
+
+    .foot-newsletter-msg{
+        font-size:10px;
     }
 
     .foot-column h4{
@@ -132,7 +232,7 @@
     }
 
     .foot-brand{
-        max-width:85px;
+        max-width:95px;
         gap:5px;
     }
 
@@ -144,6 +244,20 @@
     .foot-brand p{
         font-size:8px;
         line-height:1.2;
+    }
+
+    .foot-newsletter-input-wrap input{
+        padding:4px 5px;
+        font-size:8px;
+    }
+
+    .foot-newsletter-input-wrap button{
+        padding:4px 6px;
+        font-size:8px;
+    }
+
+    .foot-newsletter-msg{
+        font-size:7px;
     }
 
     .foot-column{

@@ -12,17 +12,23 @@ function Products() {
 
   const categoryParam = searchParams.get("category");
   const searchParam = searchParams.get("search");
+  const filterParam = searchParams.get("filter");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const params = { ordering: sortBy };
-        if (categoryParam) params.category = categoryParam;
-        if (searchParam) params.search = searchParam;
+        if (filterParam === "new") {
+          const data = await productService.getNewArrivals();
+          setProducts(data.results || data || []);
+        } else {
+          const params = { ordering: sortBy };
+          if (categoryParam) params.category = categoryParam;
+          if (searchParam) params.search = searchParam;
 
-        const data = await productService.getProducts(params);
-        setProducts(data.results || data || []);
+          const data = await productService.getProducts(params);
+          setProducts(data.results || data || []);
+        }
       } catch (err) {
         console.error("Failed to load products", err);
       } finally {
@@ -30,13 +36,17 @@ function Products() {
       }
     };
     fetchProducts();
-  }, [categoryParam, searchParam, sortBy]);
+  }, [categoryParam, searchParam, filterParam, sortBy]);
 
   return (
     <section className="products-section" style={{ minHeight: "70vh", padding: "40px 20px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", color: "#fff" }}>
         <h2 className="section-title" style={{ margin: 0 }}>
-          {categoryParam ? `${categoryParam.toUpperCase()} Collection` : "Featured Products"}
+          {filterParam === "new"
+            ? "New Arrivals"
+            : categoryParam
+            ? `${categoryParam.toUpperCase()} Collection`
+            : "Featured Products"}
         </h2>
         <select
           value={sortBy}
