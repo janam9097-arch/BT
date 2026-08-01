@@ -1,0 +1,25 @@
+.container {
+  overflow-x: auto;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  scroll-behavior: smooth;
+  /* Hide scrollbar */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure three cards visible */
+.cardWrapper {
+  flex: 0 0 calc((100% - 48px) / 3);
+}
+
+@media (max-width: 768px) {
+  .cardWrapper {
+    flex: 0 0 calc((100% - 48px) / 3);
+  }
+}

@@ -1,30 +1,81 @@
-import "./Products.css";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import ProductsCard from "../../components/ProductCard/ProductCard";
+import { productService } from "../../services/productService";
+import "./Products.css";
 
 function Products() {
-    const products = [
-  { id: 1, image: 'https://picsum.photos/200?1', name: "Kids Wear", discount: "50-70% OFF" },
-  { id: 2, image: 'https://picsum.photos/200?2', name: "Men's Footwear", discount: "50-70% OFF" },
-  { id: 3, image: 'https://picsum.photos/200?3', name: "Women's Footwear", discount: "40-80% OFF" },
-  { id: 4, image: 'https://picsum.photos/200?4', name: "Bags, Belts & Wallets", discount: "40-70% OFF" },
-  { id: 5, image: 'https://picsum.photos/200?5', name: "Office Wear", discount: "40-70% OFF" },
-  { id: 6, image: 'https://picsum.photos/200?6', name: "Men's Ethnic Wear", discount: "UP TO 60% OFF" },
-  { id: 7, image: 'https://picsum.photos/200?7', name: "Women's Ethnic Wear", discount: "30-70% OFF" },
-  { id: 8, image: 'https://picsum.photos/200?8', name: "Watches", discount: "20-50% OFF" },
-  { id: 9, image: 'https://picsum.photos/200?9', name: "Sunglasses", discount: "30-60% OFF" },
-  { id: 10, image: 'https://picsum.photos/200?10', name: "Glasses", discount: "60-90% OFF" },
-];
-    return (
-        <section className="products-section">
-            <h2 className="section-title">Featured Products</h2>
+  const [searchParams] = useSearchParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("-created_at");
 
-            <div className="products-grid">
-                {products.map((p) => (
-                    <ProductsCard key={p.id} product={p} />
-                ))}
-            </div>
-        </section>
-    );
+  const categoryParam = searchParams.get("category");
+  const searchParam = searchParams.get("search");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const params = { ordering: sortBy };
+        if (categoryParam) params.category = categoryParam;
+        if (searchParam) params.search = searchParam;
+
+        const data = await productService.getProducts(params);
+        setProducts(data.results || data || []);
+      } catch (err) {
+        console.error("Failed to load products", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, [categoryParam, searchParam, sortBy]);
+
+  return (
+    <>
+      <Navbar />
+      <section className="products-section" style={{ minHeight: "70vh", padding: "40px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", color: "#fff" }}>
+          <h2 className="section-title" style={{ margin: 0 }}>
+            {categoryParam ? `${categoryParam.toUpperCase()} Collection` : "Featured Products"}
+          </h2>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            style={{
+              background: "#111",
+              color: "#D4AF37",
+              border: "1px solid #D4AF37",
+              padding: "8px 16px",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            <option value="-created_at">Newest First</option>
+            <option value="price">Price: Low to High</option>
+            <option value="-price">Price: High to Low</option>
+            <option value="title">Name A-Z</option>
+          </select>
+        </div>
+
+        {loading ? (
+          <div style={{ color: "#D4AF37", textAlign: "center", padding: "50px" }}>Loading catalog...</div>
+        ) : products.length === 0 ? (
+          <div style={{ color: "#aaa", textAlign: "center", padding: "50px" }}>No products found.</div>
+        ) : (
+          <div className="products-grid">
+            {products.map((p) => (
+              <ProductsCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
+      </section>
+      <Footer />
+    </>
+  );
 }
 
 export default Products;
