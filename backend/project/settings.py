@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables
+# Load environment variables from .env file (local dev only; on Railway these come from the dashboard)
 load_dotenv(BASE_DIR / '.env')
 
+# --- Security ---
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-b3wdiisy&rvxl@o8-xc+5+n-^$ot+sr7cg%+7k43s5yf)(_r$x')
 DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,15 +72,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-# Database Configuration (MySQL)
+# --- Database Configuration ---
+# Railway provides MYSQL_URL or individual MYSQL_* vars.
+# Falls back to local MySQL for development.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'ecommerce_db'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'janaBM@88192'),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'NAME': os.getenv('MYSQLDB_DATABASE', os.getenv('DB_NAME', 'ecommerce_db')),
+        'USER': os.getenv('MYSQLUSER', os.getenv('DB_USER', 'root')),
+        'PASSWORD': os.getenv('MYSQLPASSWORD', os.getenv('DB_PASSWORD', '')),
+        'HOST': os.getenv('MYSQLHOST', os.getenv('DB_HOST', '127.0.0.1')),
+        'PORT': os.getenv('MYSQLPORT', os.getenv('DB_PORT', '3306')),
         'OPTIONS': {
             'charset': 'utf8mb4',
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -100,15 +104,21 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# --- Static Files (WhiteNoise for production) ---
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS & CSRF Configuration
+# --- CORS & CSRF Configuration ---
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
@@ -116,6 +126,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://janam9097-arch.github.io",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -123,10 +134,18 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://janam9097-arch.github.io",
     "https://*.github.io",
 ]
 
-# REST Framework
+# Add Railway domain to CORS & CSRF if set
+_RAILWAY_URL = os.getenv('RAILWAY_PUBLIC_DOMAIN')
+if _RAILWAY_URL:
+    _full = f"https://{_RAILWAY_URL}"
+    CORS_ALLOWED_ORIGINS.append(_full)
+    CSRF_TRUSTED_ORIGINS.append(_full)
+
+# --- REST Framework ---
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -139,7 +158,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 12,
 }
 
-# SimpleJWT settings
+# --- SimpleJWT ---
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -148,5 +167,5 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# Email settings
+# --- Email ---
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
