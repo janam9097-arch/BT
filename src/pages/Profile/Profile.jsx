@@ -64,7 +64,7 @@ function Profile() {
       setPwdMsg("Password updated successfully!");
       setOldPassword("");
       setNewPassword("");
-    } catch (_err) {
+    } catch {
       setPwdMsg("Failed to update password. Check your old password.");
     }
   };

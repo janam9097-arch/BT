@@ -13,7 +13,7 @@ function ForgotPassword() {
       setSubmitting(true);
       const res = await authService.forgotPassword(email);
       setMessage(res.message || "Reset link sent to your email.");
-    } catch (_err) {
+    } catch {
       setMessage("Error processing request.");
     } finally {
       setSubmitting(false);

@@ -28,7 +28,7 @@ export const newsletterService = {
         const msg = err.response.data?.message || err.response.data?.detail || err.response.data?.email?.[0];
         
         if (status === 400 && msg && String(msg).toLowerCase().includes("already")) {
-          throw new Error("This email is already subscribed!");
+          throw new Error("This email is already subscribed!", { cause: err });
         }
 
         // If endpoint does not exist (404) or server error, fallback to local storage
@@ -38,7 +38,7 @@ export const newsletterService = {
           return { success: true, message: "Thank you for subscribing!" };
         }
 
-        throw new Error(msg || "Subscription failed. Please try again.");
+        throw new Error(msg || "Subscription failed. Please try again.", { cause: err });
       } else {
         // Backend unavailable / network error -> Fallback to local storage
         stored.push(cleanEmail);

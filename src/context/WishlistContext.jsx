@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import { wishlistService } from "../services/wishlistService";
 import { useAuth } from "./AuthContext";
 
@@ -9,7 +9,7 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchWishlist = async () => {
+  const fetchWishlist = useCallback(async () => {
     if (!isAuthenticated) {
       setWishlist([]);
       return;
@@ -23,11 +23,11 @@ export const WishlistProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     fetchWishlist();
-  }, [isAuthenticated]);
+  }, [fetchWishlist]);
 
   const addToWishlist = async (productId) => {
     if (!isAuthenticated) return false;

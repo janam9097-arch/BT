@@ -8,7 +8,7 @@ export const productService = {
       if (response.data && (response.data.results?.length > 0 || (Array.isArray(response.data) && response.data.length > 0))) {
         return response.data;
       }
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using static products fallback.");
     }
 
@@ -36,7 +36,7 @@ export const productService = {
     try {
       const response = await api.get(`/products/${slug}/`);
       if (response.data) return response.data;
-    } catch (_err) {
+    } catch {
       console.warn(`Backend unavailable for product ${slug}, using mock fallback.`);
     }
     const found = mockProducts.find(
@@ -51,7 +51,7 @@ export const productService = {
       if (response.data && (response.data.results?.length > 0 || (Array.isArray(response.data) && response.data.length > 0))) {
         return response.data;
       }
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using featured products fallback.");
     }
     const list = mockProducts.filter((p) => p.is_featured);
@@ -64,7 +64,7 @@ export const productService = {
       if (response.data && (response.data.results?.length > 0 || (Array.isArray(response.data) && response.data.length > 0))) {
         return response.data;
       }
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using trending products fallback.");
     }
     const list = mockProducts.filter((p) => p.is_trending);
@@ -77,7 +77,7 @@ export const productService = {
       if (response.data && (response.data.results?.length > 0 || (Array.isArray(response.data) && response.data.length > 0))) {
         return response.data;
       }
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using best sellers fallback.");
     }
     const list = mockProducts.filter((p) => p.is_best_seller);
@@ -90,7 +90,7 @@ export const productService = {
       if (response.data && (response.data.results?.length > 0 || (Array.isArray(response.data) && response.data.length > 0))) {
         return response.data;
       }
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using new arrivals fallback.");
     }
     const list = mockProducts.filter((p) => p.is_new_arrival);
@@ -101,7 +101,7 @@ export const productService = {
     try {
       const response = await api.get("/products/brands/");
       if (response.data) return response.data;
-    } catch (_err) {
+    } catch {
       console.warn("Backend unavailable, using brands fallback.");
     }
     return [
@@ -118,7 +118,7 @@ export const productService = {
     try {
       const response = await api.get(`/reviews/?product=${productId}`);
       return response.data;
-    } catch (_err) {
+    } catch {
       return { results: [] };
     }
   },
@@ -127,7 +127,7 @@ export const productService = {
     try {
       const response = await api.post("/reviews/", reviewData);
       return response.data;
-    } catch (_err) {
+    } catch {
       return { id: Date.now(), ...reviewData };
     }
   },
