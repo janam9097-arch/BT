@@ -151,7 +151,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://janam9097-arch.github.io",
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+    r"^https://.*\.netlify\.app$",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -159,24 +163,11 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://janam9097-arch.github.io",
-    "https://*.github.io",
+    "https://*.vercel.app",
+    "https://*.netlify.app",
 ]
 
-# Netlify support — add your Netlify domain here after deployment
-netlify_domain = os.getenv("NETLIFY_DOMAIN")
-if netlify_domain:
-    netlify_url = f"https://{netlify_domain}"
-    if netlify_url not in CORS_ALLOWED_ORIGINS:
-        CORS_ALLOWED_ORIGINS.append(netlify_url)
-    if netlify_url not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(netlify_url)
-
-# Also support wildcard Netlify subdomains
-if "https://*.netlify.app" not in CSRF_TRUSTED_ORIGINS:
-    CSRF_TRUSTED_ORIGINS.append("https://*.netlify.app")
-
-# Vercel support — add your Vercel domain here after deployment
+# Vercel & Netlify custom domain support via env vars
 vercel_domain = os.getenv("VERCEL_DOMAIN")
 if vercel_domain:
     vercel_url = f"https://{vercel_domain}"
@@ -184,10 +175,6 @@ if vercel_domain:
         CORS_ALLOWED_ORIGINS.append(vercel_url)
     if vercel_url not in CSRF_TRUSTED_ORIGINS:
         CSRF_TRUSTED_ORIGINS.append(vercel_url)
-
-# Also support wildcard Vercel subdomains
-if "https://*.vercel.app" not in CSRF_TRUSTED_ORIGINS:
-    CSRF_TRUSTED_ORIGINS.append("https://*.vercel.app")
 
 # Railway support
 railway_domain = os.getenv("RAILWAY_PUBLIC_DOMAIN")
