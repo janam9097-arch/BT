@@ -138,3 +138,44 @@ class LogoutView(APIView):
             return Response({'message': 'Successfully logged out.'})
         except Exception:
             return Response({'message': 'Logged out.'})
+
+
+class SupabaseSyncView(APIView):
+    """
+    Called by the frontend after Supabase login to ensure a Django user
+    record exists for this Supabase user. Handles Google OAuth users who
+    have no prior Django account.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        supabase_id = request.data.get('supabase_id')
+        email = request.data.get('email')
+        first_name = request.data.get('first_name', '')
+        last_name = request.data.get('last_name', '')
+        username = request.data.get('username', '')
+        avatar_url = request.data.get('avatar_url', '')
+
+        if not email:
+            return Response({'error': 'Email is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = request.user
+
+        # Update fields if they were empty
+        updated = False
+        if first_name and not user.first_name:
+            user.first_name = first_name
+            updated = True
+        if last_name and not user.last_name:
+            user.last_name = last_name
+            updated = True
+        if updated:
+            user.save()
+
+        # Ensure profile exists
+        profile, created = Profile.objects.get_or_create(user=user)
+
+        return Response({
+            'message': 'User synced successfully.',
+            'user': UserSerializer(user).data,
+        })

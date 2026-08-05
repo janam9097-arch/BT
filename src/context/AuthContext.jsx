@@ -1,55 +1,92 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import supabase from "../services/supabaseClient";
 import { authService } from "../services/authService";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch Django backend profile for cart/orders/address data
+  const fetchBackendProfile = async () => {
+    try {
+      const profileData = await authService.getProfile();
+      setProfile(profileData);
+    } catch (e) {
+      console.warn("Backend profile fetch failed:", e);
+      setProfile(null);
+    }
+  };
+
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        try {
-          const profile = await authService.getProfile();
-          setUser(profile);
-        } catch (error) {
-          console.error("Failed to load user profile", error);
+    // Get initial session
+    const initAuth = async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data?.session?.user) {
+          setUser(data.session.user);
+          await authService.syncUserToBackend(data.session.user);
+          await fetchBackendProfile();
+        }
+      } catch (e) {
+        console.error("Auth init error:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+
+    // Listen for auth state changes (login, logout, OAuth callback, token refresh)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === "SIGNED_IN" && session?.user) {
+          setUser(session.user);
+          await authService.syncUserToBackend(session.user);
+          await fetchBackendProfile();
+        } else if (event === "SIGNED_OUT") {
           setUser(null);
+          setProfile(null);
+        } else if (event === "TOKEN_REFRESHED" && session?.user) {
+          setUser(session.user);
         }
       }
-      setLoading(false);
+    );
+
+    return () => {
+      subscription?.unsubscribe();
     };
-    fetchUser();
   }, []);
 
   const login = async (email, password) => {
     const data = await authService.login(email, password);
-    const profile = await authService.getProfile();
-    setUser(profile);
     return data;
+  };
+
+  const loginWithGoogle = async () => {
+    return await authService.loginWithGoogle();
   };
 
   const register = async (userData) => {
     const data = await authService.register(userData);
-    if (data.user) {
-      setUser(data.user);
-    }
     return data;
   };
 
   const logout = async () => {
     await authService.logout();
     setUser(null);
+    setProfile(null);
   };
 
   const refreshUser = async () => {
     try {
-      const profile = await authService.getProfile();
-      setUser(profile);
+      const supabaseUser = await authService.getUser();
+      setUser(supabaseUser);
+      await fetchBackendProfile();
     } catch (e) {
-      console.error(e);
+      console.error("Refresh user error:", e);
     }
   };
 
@@ -57,9 +94,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        profile,
         loading,
         isAuthenticated: !!user,
         login,
+        loginWithGoogle,
         register,
         logout,
         refreshUser,

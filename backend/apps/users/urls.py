@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
     RegisterView, UserProfileView, AddressViewSet,
     ChangePasswordView, ForgotPasswordView, ResetPasswordView,
-    VerifyEmailView, LogoutView
+    VerifyEmailView, LogoutView, SupabaseSyncView
 )
 
 router = DefaultRouter()
@@ -22,5 +22,6 @@ urlpatterns = [
     path('forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
     path('reset-password/', ResetPasswordView.as_view(), name='reset_password'),
     path('verify-email/', VerifyEmailView.as_view(), name='verify_email'),
+    path('supabase-sync/', SupabaseSyncView.as_view(), name='supabase_sync'),
     path('', include(router.urls)),
 ]

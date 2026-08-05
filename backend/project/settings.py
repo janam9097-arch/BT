@@ -17,6 +17,9 @@ ALLOWED_HOSTS = os.getenv(
     "localhost,127.0.0.1,.onrender.com,.railway.app,*"
 ).split(",")
 
+# --- Supabase Configuration ---
+SUPABASE_JWT_SECRET = os.getenv('SUPABASE_JWT_SECRET', '')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,41 +79,37 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-# --- Database Configuration ---
-# Supports MYSQL_URL / DATABASE_URL, individual Railway vars, or fallback to local MySQL
-db_url = os.getenv('DATABASE_URL') or os.getenv('MYSQL_URL') or os.getenv('MYSQL_PRIVATE_URL')
+# --- Database Configuration (Supabase PostgreSQL) ---
+# Supports DATABASE_URL (Supabase connection string) or individual DB_* env vars
+db_url = os.getenv('DATABASE_URL')
 
 if db_url:
-    # Handle mysql:// or mysql2:// scheme
-    if db_url.startswith('mysql2://'):
-        db_url = db_url.replace('mysql2://', 'mysql://', 1)
+    # Parse Supabase PostgreSQL connection string
     url = urllib.parse.urlparse(db_url)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': url.path.lstrip('/'),
-            'USER': url.username or '',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': url.path.lstrip('/') or 'postgres',
+            'USER': url.username or 'postgres',
             'PASSWORD': urllib.parse.unquote(url.password or ''),
-            'HOST': url.hostname or '127.0.0.1',
-            'PORT': str(url.port or 3306),
+            'HOST': url.hostname or 'localhost',
+            'PORT': str(url.port or 5432),
             'OPTIONS': {
-                'charset': 'utf8mb4',
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                'sslmode': 'require',
             },
         }
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('MYSQLDATABASE') or os.getenv('MYSQLDB_DATABASE') or os.getenv('MYSQL_DATABASE') or os.getenv('DB_NAME', 'ecommerce_db'),
-            'USER': os.getenv('MYSQLUSER') or os.getenv('MYSQL_USER') or os.getenv('DB_USER', 'root'),
-            'PASSWORD': os.getenv('MYSQLPASSWORD') or os.getenv('MYSQL_PASSWORD') or os.getenv('DB_PASSWORD', ''),
-            'HOST': os.getenv('MYSQLHOST') or os.getenv('MYSQL_HOST') or os.getenv('DB_HOST', '127.0.0.1'),
-            'PORT': os.getenv('MYSQLPORT') or os.getenv('MYSQL_PORT') or os.getenv('DB_PORT', '3306'),
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME', 'postgres'),
+            'USER': os.getenv('DB_USER', 'postgres'),
+            'PASSWORD': os.getenv('DB_PASSWORD', ''),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
             'OPTIONS': {
-                'charset': 'utf8mb4',
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                'sslmode': os.getenv('DB_SSLMODE', 'prefer'),
             },
         }
     }
@@ -164,6 +163,32 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.github.io",
 ]
 
+# Netlify support — add your Netlify domain here after deployment
+netlify_domain = os.getenv("NETLIFY_DOMAIN")
+if netlify_domain:
+    netlify_url = f"https://{netlify_domain}"
+    if netlify_url not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(netlify_url)
+    if netlify_url not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(netlify_url)
+
+# Also support wildcard Netlify subdomains
+if "https://*.netlify.app" not in CSRF_TRUSTED_ORIGINS:
+    CSRF_TRUSTED_ORIGINS.append("https://*.netlify.app")
+
+# Vercel support — add your Vercel domain here after deployment
+vercel_domain = os.getenv("VERCEL_DOMAIN")
+if vercel_domain:
+    vercel_url = f"https://{vercel_domain}"
+    if vercel_url not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(vercel_url)
+    if vercel_url not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(vercel_url)
+
+# Also support wildcard Vercel subdomains
+if "https://*.vercel.app" not in CSRF_TRUSTED_ORIGINS:
+    CSRF_TRUSTED_ORIGINS.append("https://*.vercel.app")
+
 # Railway support
 railway_domain = os.getenv("RAILWAY_PUBLIC_DOMAIN")
 if railway_domain:
@@ -185,6 +210,7 @@ if render_domain:
 # --- REST Framework ---
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apps.users.supabase_auth.SupabaseJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
@@ -195,7 +221,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 12,
 }
 
-# --- SimpleJWT ---
+# --- SimpleJWT (kept as fallback for existing tokens) ---
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),

@@ -1,3 +1,1 @@
-import pymysql
-
-pymysql.install_as_MySQLdb()
+# PostgreSQL via psycopg2-binary — no adapter shim needed

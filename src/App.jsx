@@ -15,6 +15,7 @@ import Search from "./pages/Search/Search";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import AuthCallback from "./pages/AuthCallback/AuthCallback";
 import Profile from "./pages/Profile/Profile";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Cart from "./pages/Cart/Cart";
@@ -31,7 +32,7 @@ import StoreLocator from "./pages/StoreLocator/StoreLocator";
 
 function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AuthProvider>
         <WishlistProvider>
           <CartProvider>
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/cart" element={<Cart />} />
 
                 {/* Footer & Customer Care Routes */}
@@ -98,8 +100,7 @@ function App() {
                 />
               </Route>
 
-              {/* Catch-all and /BT/ redirect routes */}
-              <Route path="/BT/*" element={<Navigate to="/" replace />} />
+              {/* Catch-all redirect */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </CartProvider>
