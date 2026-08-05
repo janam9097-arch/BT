@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.95);
+  background: rgba(10, 10, 10, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-dark);
   width: 100%;
@@ -19,51 +19,25 @@
   gap: 20px;
 }
 
-/* Brand Logo */
+/* Original Clean Logo: Just BT in bold gold serif */
 .brand-logo-link {
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: #fff;
 }
 
-.brand-badge-circle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1.5px solid var(--gold-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.brand-logo-text {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: 34px;
   font-weight: 700;
   color: var(--gold-primary);
-  background: rgba(201, 166, 74, 0.1);
-  letter-spacing: 0.5px;
-}
-
-.brand-text-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-title {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   line-height: 1;
+  transition: opacity 0.2s ease;
 }
 
-.brand-subtitle {
-  font-size: 8px;
-  letter-spacing: 2px;
-  color: var(--gold-primary);
-  text-transform: uppercase;
-  margin-top: 2px;
+.brand-logo-text:hover {
+  opacity: 0.85;
 }
 
 /* Nav Links */
@@ -199,27 +173,29 @@
   cursor: pointer;
 }
 
-/* Mobile Drawer Overlay */
+/* Mobile Drawer Overlay Fix - High z-index & Solid #0A0A0A background */
 .mobile-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 2000;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
   display: flex;
   justify-content: flex-start;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(6px);
 }
 
 .mobile-drawer {
-  width: 280px;
+  width: 290px;
+  max-width: 85vw;
   height: 100%;
-  background: #0d0d0d;
+  background: #0A0A0A;
   border-right: 1px solid var(--border-gold);
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.95);
+  overflow-y: auto;
 }
 
 .mobile-drawer-header {
@@ -239,10 +215,9 @@
 .mobile-drawer-link {
   color: #fff;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;

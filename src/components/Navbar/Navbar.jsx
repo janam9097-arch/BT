@@ -35,13 +35,9 @@ function Navbar() {
           <FaBars />
         </button>
 
-        {/* Logo (left) */}
+        {/* Logo (left) — Reverted to clean original "BT" serif font */}
         <Link to="/" className="brand-logo-link">
-          <div className="brand-badge-circle">BT</div>
-          <div className="brand-text-box">
-            <span className="brand-title">BANGARU</span>
-            <span className="brand-subtitle">THREADS</span>
-          </div>
+          <span className="brand-logo-text">BT</span>
         </Link>
 
         {/* Primary Nav (Desktop) */}
@@ -99,20 +95,16 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (Solid dark panel above backdrop) */}
       {mobileDrawerOpen && (
         <div className="mobile-drawer-overlay" onClick={() => setMobileDrawerOpen(false)}>
           <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-drawer-header">
-              <div className="brand-logo-link">
-                <div className="brand-badge-circle">BT</div>
-                <div className="brand-text-box">
-                  <span className="brand-title">BANGARU</span>
-                  <span className="brand-subtitle">THREADS</span>
-                </div>
-              </div>
+              <Link to="/" className="brand-logo-link" onClick={() => setMobileDrawerOpen(false)}>
+                <span className="brand-logo-text">BT</span>
+              </Link>
               <button
-                style={{ background: "none", border: "none", color: "#fff", fontSize: "20px" }}
+                style={{ background: "none", border: "none", color: "#fff", fontSize: "22px", cursor: "pointer" }}
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 <FaTimes />

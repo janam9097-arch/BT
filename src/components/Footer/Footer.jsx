@@ -10,7 +10,7 @@ function Footer() {
         {/* Brand Column */}
         <div className="footer-brand-col">
           <Link to="/" style={{ textDecoration: "none" }}>
-            <div className="footer-brand-title">BANGARU THREADS</div>
+            <span className="brand-logo-text" style={{ fontSize: "36px" }}>BT</span>
           </Link>
           <p className="footer-brand-desc">
             A luxury fashion house crafting handloom silk, bespoke apparel, and timeless accessories for Men, Women, and Kids.
@@ -67,18 +67,10 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar: Payments & Copyright */}
+      {/* Bottom Bar: Copyright (Payment badges removed per design request) */}
       <div className="footer-bottom-bar">
-        <div className="footer-copyright">
+        <div className="footer-copyright" style={{ width: "100%", textAlign: "center" }}>
           © {new Date().getFullYear()} Bangaru Threads. All Rights Reserved. Crafted for Luxury.
-        </div>
-        <div className="footer-payment-badges">
-          <span className="payment-badge">VISA</span>
-          <span className="payment-badge">Mastercard</span>
-          <span className="payment-badge">UPI</span>
-          <span className="payment-badge">Razorpay</span>
-          <span className="payment-badge">Apple Pay</span>
-          <span className="payment-badge">COD</span>
         </div>
       </div>
     </footer>
