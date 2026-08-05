@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebookF, FaTwitter, FaPinterestP } from "react-icons/fa";
 import "./Footer.css";
 
 function Footer() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubmitted(true);
+      setEmail("");
+    }
+  };
+
   return (
     <footer className="footer-root">
+      {/* Newsletter Bar (Top of Footer) */}
+      <div className="footer-newsletter-bar">
+        <h3 className="footer-newsletter-title">Subscribe to VIP Concierge</h3>
+        <p className="footer-newsletter-subcopy">
+          Subscribe to receive private invitations to runway drops, early sale access, and a 10% welcome voucher on your first order.
+        </p>
+
+        {submitted ? (
+          <div style={{ color: "#4ed87b", fontSize: "14px", fontWeight: "600", marginTop: "10px" }}>
+            ✓ Thank you for subscribing! Your 10% welcome code has been sent to your inbox.
+          </div>
+        ) : (
+          <form className="footer-newsletter-form" onSubmit={handleNewsletterSubmit}>
+            <input
+              type="email"
+              required
+              className="footer-newsletter-input"
+              placeholder="Enter your email address…"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit" className="footer-newsletter-btn">
+              CLAIM 10% OFF
+            </button>
+          </form>
+        )}
+      </div>
+
+      {/* 4-Column Footer Main Content */}
       <div className="footer-container">
-        {/* Brand Column */}
+        {/* Column 1 — Brand */}
         <div className="footer-brand-col">
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <span className="brand-logo-text" style={{ fontSize: "36px" }}>BT</span>
-          </Link>
+          <div className="footer-brand-heading">BANGARU THREADS</div>
           <p className="footer-brand-desc">
             A luxury fashion house crafting handloom silk, bespoke apparel, and timeless accessories for Men, Women, and Kids.
           </p>
@@ -31,7 +69,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Shop Column */}
+        {/* Column 2 — Shop Collections */}
         <div>
           <h4 className="footer-col-title">Shop Collections</h4>
           <ul className="footer-links-list">
@@ -39,11 +77,11 @@ function Footer() {
             <li className="footer-link-item"><Link to="/products?category=women">Women's Couture</Link></li>
             <li className="footer-link-item"><Link to="/products?category=kids">Kids Premium Wear</Link></li>
             <li className="footer-link-item"><Link to="/products?category=accessories">Bags & Accessories</Link></li>
-            <li className="footer-link-item"><Link to="/products?filter=sale" style={{ color: "var(--gold-primary)" }}>Exclusive Sale</Link></li>
+            <li className="footer-link-item"><Link to="/products?filter=sale" style={{ color: "var(--gold-primary)", fontWeight: "600" }}>Exclusive Sale</Link></li>
           </ul>
         </div>
 
-        {/* Customer Care Column */}
+        {/* Column 3 — Customer Care */}
         <div>
           <h4 className="footer-col-title">Customer Care</h4>
           <ul className="footer-links-list">
@@ -55,7 +93,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* About & Legal Column */}
+        {/* Column 4 — About & Legal */}
         <div>
           <h4 className="footer-col-title">About & Legal</h4>
           <ul className="footer-links-list">
@@ -67,10 +105,10 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar: Copyright (Payment badges removed per design request) */}
+      {/* Bottom Bar — Copyright Line (Payment icons removed completely) */}
       <div className="footer-bottom-bar">
-        <div className="footer-copyright" style={{ width: "100%", textAlign: "center" }}>
-          © {new Date().getFullYear()} Bangaru Threads. All Rights Reserved. Crafted for Luxury.
+        <div className="footer-copyright">
+          © 2026 Bangaru Threads. All Rights Reserved. Crafted for Luxury.
         </div>
       </div>
     </footer>

@@ -5,7 +5,6 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import TrustValueProp from "../../components/TrustValueProp/TrustValueProp";
 import Lookbook from "../../components/Lookbook/Lookbook";
 import SocialProof from "../../components/SocialProof/SocialProof";
-import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
 import { productService } from "../../services/productService";
 import { mockProducts } from "../../data/mockProducts";
 import "./Home.css";
@@ -98,9 +97,6 @@ function Home() {
 
       {/* 6. Social Proof / UGC ("Shop the Look") */}
       <SocialProof />
-
-      {/* 8. Dedicated Newsletter Signup Section */}
-      <NewsletterSection />
     </div>
   );
 }
