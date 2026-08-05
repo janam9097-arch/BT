@@ -31,15 +31,31 @@ class AddToCartView(APIView):
         cart = get_or_create_cart(request)
         product_id = request.data.get('product_id')
         variant_id = request.data.get('variant_id')
-        quantity = int(request.data.get('quantity', 1))
+        try:
+            quantity = int(request.data.get('quantity', 1))
+        except (ValueError, TypeError):
+            quantity = 1
 
-        product = Product.objects.filter(id=product_id, is_active=True).first()
+        if not product_id:
+            return Response({'error': 'Product ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        product = None
+        try:
+            product_id_int = int(product_id)
+            product = Product.objects.filter(id=product_id_int, is_active=True).first()
+        except (ValueError, TypeError):
+            product = Product.objects.filter(slug=str(product_id), is_active=True).first()
+
         if not product:
             return Response({'error': 'Product not found.'}, status=status.HTTP_404_NOT_FOUND)
 
         variant = None
         if variant_id:
-            variant = ProductVariant.objects.filter(id=variant_id, product=product).first()
+            try:
+                variant_id_int = int(variant_id)
+                variant = ProductVariant.objects.filter(id=variant_id_int, product=product).first()
+            except (ValueError, TypeError):
+                pass
 
         item, created = CartItem.objects.get_or_create(
             cart=cart, product=product, variant=variant,

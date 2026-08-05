@@ -9,6 +9,7 @@ function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const [added, setAdded] = React.useState(false);
 
   const title = product.title || product.name;
   const image = product.primary_image || product.image || 'https://picsum.photos/400';
@@ -29,9 +30,11 @@ function ProductCard({ product }) {
     }
   };
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = async (e) => {
     e.stopPropagation();
-    addToCart(product.id);
+    await addToCart(product.id, null, 1, product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
   };
 
   return (
@@ -67,8 +70,8 @@ function ProductCard({ product }) {
           <button
             onClick={handleAddToCart}
             style={{
-              background: '#D4AF37',
-              color: '#000',
+              background: added ? '#4caf50' : '#D4AF37',
+              color: added ? '#fff' : '#000',
               border: 'none',
               borderRadius: '4px',
               padding: '6px 12px',
@@ -77,9 +80,10 @@ function ProductCard({ product }) {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
+              transition: 'all 0.3s ease',
             }}
           >
-            <FaShoppingCart /> Add
+            <FaShoppingCart /> {added ? 'Added!' : 'Add'}
           </button>
         </div>
       </div>

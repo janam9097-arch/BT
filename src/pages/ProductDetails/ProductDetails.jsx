@@ -54,8 +54,13 @@ function ProductDetails() {
 
   const inWishlist = isInWishlist(product.id);
 
-  const handleAddToCart = () => {
-    addToCart(product.id, selectedVariant?.id || null, quantity);
+  const [addedToCart, setAddedToCart] = useState(false);
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+    await addToCart(product.id, selectedVariant?.id || null, quantity, product);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
   };
 
   const handleWishlistToggle = () => {
@@ -214,8 +219,8 @@ function ProductDetails() {
             onClick={handleAddToCart}
             style={{
               width: "100%",
-              background: "#D4AF37",
-              color: "#000",
+              background: addedToCart ? "#4caf50" : "#D4AF37",
+              color: addedToCart ? "#fff" : "#000",
               border: "none",
               padding: "16px",
               borderRadius: "6px",
@@ -229,7 +234,7 @@ function ProductDetails() {
               transition: "0.3s",
             }}
           >
-            <FaShoppingCart /> Add to Cart
+            <FaShoppingCart /> {addedToCart ? "Added to Cart!" : "Add to Cart"}
           </button>
         </div>
       </div>
