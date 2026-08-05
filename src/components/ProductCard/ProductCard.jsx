@@ -1,21 +1,23 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaHeart, FaRegHeart, FaShoppingCart } from 'react-icons/fa';
-import { useCart } from '../../context/CartContext';
-import { useWishlist } from '../../context/WishlistContext';
-import './ProductCard.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart, FaShoppingCart, FaStar, FaCheck } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
+import "./ProductCard.css";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
-  const [added, setAdded] = React.useState(false);
+  const [added, setAdded] = useState(false);
 
   const title = product.title || product.name;
-  const image = product.primary_image || product.image || 'https://picsum.photos/400';
-  const discountText = product.discount_text || product.discount || (product.discount_price ? `₹${product.discount_price}` : `₹${product.price}`);
+  const image = product.primary_image || product.image || "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80";
   const slug = product.slug || product.id;
   const inWishlist = isInWishlist(product.id);
+
+  const currentPrice = product.discount_price || product.price;
+  const originalPrice = product.discount_price ? product.price : null;
 
   const handleCardClick = () => {
     navigate(`/product/${slug}`);
@@ -38,54 +40,43 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="Card" onClick={handleCardClick} style={{ position: 'relative', cursor: 'pointer' }}>
-      <button
-        onClick={handleWishlistClick}
-        style={{
-          position: 'absolute',
-          top: '15px',
-          right: '15px',
-          background: 'rgba(0,0,0,0.6)',
-          border: 'none',
-          borderRadius: '50%',
-          width: '32px',
-          height: '32px',
-          color: inWishlist ? '#ff4d4f' : '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 2,
-        }}
-      >
-        {inWishlist ? <FaHeart /> : <FaRegHeart />}
-      </button>
+    <div className="product-card" onClick={handleCardClick} style={{ cursor: "pointer" }}>
+      <div className="product-card-img-wrap">
+        {product.discount_text && (
+          <span className="product-card-discount-badge">{product.discount_text}</span>
+        )}
+        <button
+          className={`product-card-wishlist-btn ${inWishlist ? "active" : ""}`}
+          onClick={handleWishlistClick}
+          aria-label="Wishlist"
+        >
+          {inWishlist ? <FaHeart /> : <FaRegHeart />}
+        </button>
+        <img className="product-card-img" src={image} alt={title} loading="lazy" />
+      </div>
 
-      <img className="Card-img" src={image} alt={title} />
-      <div className="Card-info">
-        <p className="Card-name">{title}</p>
-        <p className="Card-discount">{discountText}</p>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-          <span className="Card-shop">Shop Now</span>
-          <button
-            onClick={handleAddToCart}
-            style={{
-              background: added ? '#4caf50' : '#D4AF37',
-              color: added ? '#fff' : '#000',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '6px 12px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.3s ease',
-            }}
-          >
-            <FaShoppingCart /> {added ? 'Added!' : 'Add'}
-          </button>
+      <div className="product-card-body">
+        <h3 className="product-card-title">{title}</h3>
+
+        <div className="product-card-rating">
+          <FaStar />
+          <span>{product.average_rating || "4.9"}</span>
+          <span className="product-card-rating-count">({product.total_reviews || 18})</span>
         </div>
+
+        <div className="product-card-price-row">
+          <span className="product-card-current-price">₹{currentPrice}</span>
+          {originalPrice && (
+            <span className="product-card-original-price">₹{originalPrice}</span>
+          )}
+        </div>
+
+        <button
+          className={`product-card-add-btn ${added ? "added" : ""}`}
+          onClick={handleAddToCart}
+        >
+          {added ? <><FaCheck /> Added!</> : <><FaShoppingCart /> Add to Cart</>}
+        </button>
       </div>
     </div>
   );

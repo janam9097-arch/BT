@@ -1,0 +1,132 @@
+.social-proof-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 24px;
+}
+
+/* UGC Grid */
+.ugc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.ugc-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-dark);
+}
+
+.ugc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ugc-card:hover .ugc-img {
+  transform: scale(1.08);
+}
+
+.ugc-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 16px;
+  text-align: center;
+}
+
+.ugc-card:hover .ugc-hover-overlay {
+  opacity: 1;
+}
+
+.ugc-handle {
+  color: var(--gold-primary);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.ugc-quote {
+  color: #fff;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Testimonials Carousel / Cards */
+.testimonials-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.testimonial-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.testimonial-stars {
+  color: var(--gold-primary);
+  display: flex;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.testimonial-text {
+  color: #d8d8d8;
+  font-size: 13px;
+  line-height: 1.6;
+  font-style: italic;
+  flex: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.testimonial-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-gold);
+}
+
+.testimonial-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.testimonial-city {
+  font-size: 11px;
+  color: #888;
+}
+
+@media (max-width: 900px) {
+  .ugc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,105 +1,157 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-import { FaSearch, FaUser, FaHeart, FaShoppingCart } from "react-icons/fa";
-import { useAuth } from "../../context/AuthContext";
+import { FaSearch, FaUser, FaHeart, FaShoppingBag, FaBars, FaTimes } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
 function Navbar() {
-  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
   const { cartCount } = useCart();
-  const { wishlistCount } = useWishlist();
+  const { wishlist } = useWishlist();
+  const { user } = useAuth();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const handleSearchSubmit = (e) => {
-    if (e.key === "Enter" || e.type === "click") {
-      if (searchTerm.trim()) {
-        navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-      }
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm("");
+      setMobileDrawerOpen(false);
     }
   };
 
   return (
-    <nav className="Nav">
-      <Link to="/">
-        <img src={logo} alt="Store logo" style={{ cursor: "pointer" }} />
-      </Link>
+    <header className="header-nav">
+      <div className="header-container">
+        {/* Mobile Hamburger Toggle */}
+        <button
+          className="mobile-hamburger-btn"
+          onClick={() => setMobileDrawerOpen(true)}
+          aria-label="Open menu"
+        >
+          <FaBars />
+        </button>
 
-      <ul>
-        <li><Link to="/products?category=men" style={{ color: "inherit", textDecoration: "none" }}>MEN</Link></li>
-        <li><Link to="/products?category=women" style={{ color: "inherit", textDecoration: "none" }}>WOMEN</Link></li>
-        <li><Link to="/products?category=kids" style={{ color: "inherit", textDecoration: "none" }}>KIDS</Link></li>
-        <li><Link to="/categories" style={{ color: "inherit", textDecoration: "none" }}>CATEGORIES</Link></li>
-      </ul>
+        {/* Logo (left) */}
+        <Link to="/" className="brand-logo-link">
+          <div className="brand-badge-circle">BT</div>
+          <div className="brand-text-box">
+            <span className="brand-title">BANGARU</span>
+            <span className="brand-subtitle">THREADS</span>
+          </div>
+        </Link>
 
-      <div className="search-box">
-        <FaSearch className="search-icon" onClick={handleSearchSubmit} style={{ cursor: "pointer" }} />
+        {/* Primary Nav (Desktop) */}
+        <nav>
+          <ul className="main-nav-ul">
+            <li><Link to="/products?category=men" className="main-nav-link">Men</Link></li>
+            <li><Link to="/products?category=women" className="main-nav-link">Women</Link></li>
+            <li><Link to="/products?category=kids" className="main-nav-link">Kids</Link></li>
+            <li><Link to="/categories" className="main-nav-link">Categories</Link></li>
+            <li><Link to="/products?filter=sale" className="main-nav-link nav-sale-pill">SALE</Link></li>
+          </ul>
+        </nav>
 
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="search"
-          aria-label="Search products"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleSearchSubmit}
-        />
+        {/* Search Bar (Center, desktop) */}
+        <form className="header-search-form" onSubmit={handleSearchSubmit}>
+          <FaSearch className="header-search-icon" onClick={handleSearchSubmit} />
+          <input
+            type="text"
+            className="header-search-input"
+            placeholder="Search luxury apparel..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
+
+        {/* Action Icons (Right) */}
+        <div className="header-actions">
+          <button
+            className="action-icon-btn"
+            onClick={() => navigate(user ? "/profile" : "/login")}
+            title={user ? "My Profile" : "Sign In"}
+          >
+            <FaUser />
+          </button>
+          <button
+            className="action-icon-btn"
+            onClick={() => navigate("/wishlist")}
+            title="Wishlist"
+          >
+            <FaHeart />
+            {wishlist?.length > 0 && (
+              <span className="cart-count-badge" style={{ background: "#ff4d4f", color: "#fff" }}>
+                {wishlist.length}
+              </span>
+            )}
+          </button>
+          <button
+            className="action-icon-btn"
+            onClick={() => navigate("/cart")}
+            title="Cart"
+          >
+            <FaShoppingBag />
+            {cartCount > 0 && <span className="cart-count-badge">{cartCount}</span>}
+          </button>
+        </div>
       </div>
 
-      <div className="actions">
-        <button
-          className="icon-button"
-          aria-label="Account"
-          onClick={() => navigate(isAuthenticated ? "/profile" : "/login")}
-        >
-          <FaUser />
-        </button>
+      {/* Mobile Drawer */}
+      {mobileDrawerOpen && (
+        <div className="mobile-drawer-overlay" onClick={() => setMobileDrawerOpen(false)}>
+          <div className="mobile-drawer" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-drawer-header">
+              <div className="brand-logo-link">
+                <div className="brand-badge-circle">BT</div>
+                <div className="brand-text-box">
+                  <span className="brand-title">BANGARU</span>
+                  <span className="brand-subtitle">THREADS</span>
+                </div>
+              </div>
+              <button
+                style={{ background: "none", border: "none", color: "#fff", fontSize: "20px" }}
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                <FaTimes />
+              </button>
+            </div>
 
-        <button
-          className="icon-button"
-          aria-label="Wishlist"
-          onClick={() => navigate("/wishlist")}
-          style={{ position: "relative" }}
-        >
-          <FaHeart />
-          {wishlistCount > 0 && (
-            <span style={badgeStyle}>{wishlistCount}</span>
-          )}
-        </button>
+            <form className="header-search-form" style={{ display: "flex", width: "100%" }} onSubmit={handleSearchSubmit}>
+              <FaSearch className="header-search-icon" />
+              <input
+                type="text"
+                className="header-search-input"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </form>
 
-        <button
-          className="icon-button"
-          aria-label="Cart"
-          onClick={() => navigate("/cart")}
-          style={{ position: "relative" }}
-        >
-          <FaShoppingCart />
-          {cartCount > 0 && (
-            <span style={badgeStyle}>{cartCount}</span>
-          )}
-        </button>
-      </div>
-    </nav>
+            <nav className="mobile-drawer-links">
+              <Link to="/products?category=men" className="mobile-drawer-link" onClick={() => setMobileDrawerOpen(false)}>
+                Men <span>›</span>
+              </Link>
+              <Link to="/products?category=women" className="mobile-drawer-link" onClick={() => setMobileDrawerOpen(false)}>
+                Women <span>›</span>
+              </Link>
+              <Link to="/products?category=kids" className="mobile-drawer-link" onClick={() => setMobileDrawerOpen(false)}>
+                Kids <span>›</span>
+              </Link>
+              <Link to="/categories" className="mobile-drawer-link" onClick={() => setMobileDrawerOpen(false)}>
+                Categories <span>›</span>
+              </Link>
+              <Link to="/products?filter=sale" className="mobile-drawer-link" style={{ color: "var(--gold-primary)", fontWeight: "bold" }} onClick={() => setMobileDrawerOpen(false)}>
+                SALE <span>%</span>
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }
-
-const badgeStyle = {
-  position: "absolute",
-  top: "-6px",
-  right: "-6px",
-  background: "#D4AF37",
-  color: "#000",
-  fontSize: "11px",
-  fontWeight: "bold",
-  borderRadius: "50%",
-  width: "18px",
-  height: "18px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
 
 export default Navbar;

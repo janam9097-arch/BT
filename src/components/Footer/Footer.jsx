@@ -1,92 +1,85 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { newsletterService } from "../../services/newsletterService";
+import { FaInstagram, FaFacebookF, FaTwitter, FaPinterestP } from "react-icons/fa";
 import "./Footer.css";
-import logo from "../../assets/images/logo.png";
 
 function Footer() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState({ loading: false, type: "", message: "" });
-
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    if (!email.trim()) {
-      setStatus({ loading: false, type: "error", message: "Please enter your email." });
-      return;
-    }
-
-    setStatus({ loading: true, type: "", message: "" });
-    try {
-      const res = await newsletterService.subscribe(email);
-      setStatus({ loading: false, type: "success", message: res.message || "Thank you for subscribing!" });
-      setEmail("");
-    } catch (err) {
-      setStatus({ loading: false, type: "error", message: err.message || "Subscription failed." });
-    }
-  };
-
   return (
-    <footer className="foot">
-      <div className="foot-top">
-        <div className="foot-brand">
-          <Link to="/" aria-label="Bangaru Threads Home">
-            <img src={logo} alt="Store logo" />
+    <footer className="footer-root">
+      <div className="footer-container">
+        {/* Brand Column */}
+        <div className="footer-brand-col">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <div className="footer-brand-title">BANGARU THREADS</div>
           </Link>
-          <p>Sign up for updates on new drops and offers.</p>
-          <form className="foot-newsletter" onSubmit={handleSubscribe}>
-            <div className="foot-newsletter-input-wrap">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={status.loading}
-                aria-label="Email address for newsletter"
-              />
-              <button type="submit" disabled={status.loading}>
-                {status.loading ? "..." : "Join"}
-              </button>
-            </div>
-            {status.message && (
-              <span className={`foot-newsletter-msg foot-newsletter-${status.type}`}>
-                {status.message}
-              </span>
-            )}
-          </form>
+          <p className="footer-brand-desc">
+            A luxury fashion house crafting handloom silk, bespoke apparel, and timeless accessories for Men, Women, and Kids.
+          </p>
+          <div className="footer-social-row">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Facebook">
+              <FaFacebookF />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Twitter">
+              <FaTwitter />
+            </a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Pinterest">
+              <FaPinterestP />
+            </a>
+          </div>
         </div>
 
-        <div className="foot-column">
-          <h4>Shop</h4>
-          <ul>
-            <li><Link to="/products?category=men">Men</Link></li>
-            <li><Link to="/products?category=women">Women</Link></li>
-            <li><Link to="/products?category=kids">Kids</Link></li>
-            <li><Link to="/products?filter=new">New Arrivals</Link></li>
+        {/* Shop Column */}
+        <div>
+          <h4 className="footer-col-title">Shop Collections</h4>
+          <ul className="footer-links-list">
+            <li className="footer-link-item"><Link to="/products?category=men">Men's Apparel</Link></li>
+            <li className="footer-link-item"><Link to="/products?category=women">Women's Couture</Link></li>
+            <li className="footer-link-item"><Link to="/products?category=kids">Kids Premium Wear</Link></li>
+            <li className="footer-link-item"><Link to="/products?category=accessories">Bags & Accessories</Link></li>
+            <li className="footer-link-item"><Link to="/products?filter=sale" style={{ color: "var(--gold-primary)" }}>Exclusive Sale</Link></li>
           </ul>
         </div>
 
-        <div className="foot-column">
-          <h4>Customer Care</h4>
-          <ul>
-            <li><Link to="/track-order">Track Order</Link></li>
-            <li><Link to="/returns">Returns & Exchanges</Link></li>
-            <li><Link to="/shipping">Shipping Info</Link></li>
-            <li><Link to="/faqs">FAQs</Link></li>
+        {/* Customer Care Column */}
+        <div>
+          <h4 className="footer-col-title">Customer Care</h4>
+          <ul className="footer-links-list">
+            <li className="footer-link-item"><Link to="/track-order">Track Your Order</Link></li>
+            <li className="footer-link-item"><Link to="/shipping">Shipping Policy</Link></li>
+            <li className="footer-link-item"><Link to="/returns">Returns & Exchanges</Link></li>
+            <li className="footer-link-item"><Link to="/store-locator">Store Locator</Link></li>
+            <li className="footer-link-item"><Link to="/faqs">Help & FAQs</Link></li>
           </ul>
         </div>
 
-        <div className="foot-column">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:support@store.com">support@store.com</a></li>
-            <li><a href="tel:+15551234567">+1 (555) 123-4567</a></li>
-            <li><Link to="/store-locator">Store Locator</Link></li>
+        {/* About & Legal Column */}
+        <div>
+          <h4 className="footer-col-title">About & Legal</h4>
+          <ul className="footer-links-list">
+            <li className="footer-link-item"><Link to="/about">Our Heritage</Link></li>
+            <li className="footer-link-item"><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li className="footer-link-item"><Link to="/terms-of-service">Terms of Service</Link></li>
+            <li className="footer-link-item"><Link to="/contact">Contact Concierge</Link></li>
           </ul>
         </div>
       </div>
 
-      <div className="foot-bottom">
-        <p>© 2026 Bangaru Threads. All Rights Reserved.</p>
+      {/* Bottom Bar: Payments & Copyright */}
+      <div className="footer-bottom-bar">
+        <div className="footer-copyright">
+          © {new Date().getFullYear()} Bangaru Threads. All Rights Reserved. Crafted for Luxury.
+        </div>
+        <div className="footer-payment-badges">
+          <span className="payment-badge">VISA</span>
+          <span className="payment-badge">Mastercard</span>
+          <span className="payment-badge">UPI</span>
+          <span className="payment-badge">Razorpay</span>
+          <span className="payment-badge">Apple Pay</span>
+          <span className="payment-badge">COD</span>
+        </div>
       </div>
     </footer>
   );

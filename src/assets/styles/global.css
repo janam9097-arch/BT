@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -6,13 +6,28 @@
   padding: 0;
 }
 
+:root {
+  --bg-black: #0A0A0A;
+  --bg-card: #121212;
+  --gold-primary: #C9A64A;
+  --gold-hover: #E5C368;
+  --gold-bright: #D4AF37;
+  --text-main: #F0F0F0;
+  --text-muted: #A0A0A0;
+  --border-dark: #222222;
+  --border-gold: rgba(201, 166, 74, 0.35);
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Poppins', sans-serif;
+}
+
 html, body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  font-family: 'Poppins', sans-serif;
-  background-color: #050505;
-  color: #ffffff;
+  font-family: var(--font-sans);
+  background-color: var(--bg-black);
+  color: var(--text-main);
+  line-height: 1.6;
 }
 
 #root {
@@ -24,11 +39,42 @@ html, body {
   flex-direction: column;
 }
 
+h1, h2, h3, h4, .serif-heading {
+  font-family: var(--font-serif);
+  letter-spacing: 0.5px;
+}
+
 img, video {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 button, input, select, textarea {
   font-family: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A64A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E5C368;
+}
+
+/* Tight vertical rhythm utility */
+.section-tight {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
