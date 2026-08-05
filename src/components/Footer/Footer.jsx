@@ -45,12 +45,12 @@ function Footer() {
         )}
       </div>
 
-      {/* 4-Column Footer Main Content */}
+      {/* 4-Column Footer Main Content (Desktop Grid) */}
       <div className="footer-container">
         {/* Column 1 — Brand */}
         <div className="footer-brand-col">
           <Link to="/" style={{ textDecoration: "none" }}>
-            <span className="brand-logo-text" style={{ fontSize: "36px" }}>BT</span>
+            <div className="footer-brand-heading">BANGARU THREADS</div>
           </Link>
           <p className="footer-brand-desc">
             A luxury fashion house crafting handloom silk, bespoke apparel, and timeless accessories for Men, Women, and Kids.
@@ -107,7 +107,7 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar — Copyright Line (No payment badges) */}
+      {/* Bottom Bar — Copyright Line (Payment icons removed completely) */}
       <div className="footer-bottom-bar">
         <div className="footer-copyright">
           © 2026 Bangaru Threads. All Rights Reserved. Crafted for Luxury.
