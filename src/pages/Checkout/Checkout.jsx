@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { orderService } from "../../services/orderService";
+import "./Checkout.css";
 
 function Checkout() {
   const { cart, fetchCart } = useCart();
@@ -52,32 +53,26 @@ function Checkout() {
 
   if (!cart || cart.items?.length === 0) {
     return (
-      <div style={{ color: "#fff", padding: "100px 20px", textAlign: "center" }}>
+      <div style={{ color: "#fff", padding: "80px 20px", textAlign: "center" }}>
         Your cart is empty. Cannot proceed to checkout.
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: "1100px", margin: "40px auto", padding: "0 20px", color: "#fff" }}>
-      <h2 style={{ color: "#D4AF37", marginBottom: "30px" }}>Checkout</h2>
+    <div className="checkout-container">
+      <h2 className="checkout-heading">Checkout</h2>
 
-      {error && (
-        <div style={{ background: "rgba(255,0,0,0.2)", border: "1px solid red", color: "#ff6b6b", padding: "12px", borderRadius: "6px", marginBottom: "25px" }}>
-          {error}
-        </div>
-      )}
+      {error && <div className="checkout-error">{error}</div>}
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "40px" }}>
+      <form onSubmit={handleSubmit} className="checkout-grid">
         {/* Shipping Info */}
         <div>
-          <h3 style={{ color: "#D4AF37", marginTop: 0, borderBottom: "1px solid #333", paddingBottom: "10px" }}>
-            Shipping Address
-          </h3>
+          <h3 className="checkout-section-title">Shipping Address</h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px", marginBottom: "15px" }}>
-            <div>
-              <label style={{ display: "block", marginBottom: "6px" }}>Full Name</label>
+          <div className="form-row-2">
+            <div className="form-group">
+              <label>Full Name</label>
               <input
                 type="text"
                 name="shipping_name"
@@ -85,11 +80,10 @@ function Checkout() {
                 value={formData.shipping_name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
               />
             </div>
-            <div>
-              <label style={{ display: "block", marginBottom: "6px" }}>Phone Number</label>
+            <div className="form-group">
+              <label>Phone Number</label>
               <input
                 type="text"
                 name="shipping_phone"
@@ -97,13 +91,12 @@ function Checkout() {
                 value={formData.shipping_phone}
                 onChange={handleChange}
                 placeholder="+1 234 567 8900"
-                style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
               />
             </div>
           </div>
 
-          <div style={{ marginBottom: "15px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>Street Address</label>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label>Street Address</label>
             <input
               type="text"
               name="shipping_address"
@@ -111,13 +104,12 @@ function Checkout() {
               value={formData.shipping_address}
               onChange={handleChange}
               placeholder="123 Luxury Street, Suite 400"
-              style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
             />
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "15px", marginBottom: "30px" }}>
-            <div>
-              <label style={{ display: "block", marginBottom: "6px" }}>City</label>
+          <div className="form-row-3">
+            <div className="form-group">
+              <label>City</label>
               <input
                 type="text"
                 name="shipping_city"
@@ -125,11 +117,10 @@ function Checkout() {
                 value={formData.shipping_city}
                 onChange={handleChange}
                 placeholder="New York"
-                style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
               />
             </div>
-            <div>
-              <label style={{ display: "block", marginBottom: "6px" }}>State</label>
+            <div className="form-group">
+              <label>State</label>
               <input
                 type="text"
                 name="shipping_state"
@@ -137,11 +128,10 @@ function Checkout() {
                 value={formData.shipping_state}
                 onChange={handleChange}
                 placeholder="NY"
-                style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
               />
             </div>
-            <div>
-              <label style={{ display: "block", marginBottom: "6px" }}>Postal Code</label>
+            <div className="form-group">
+              <label>Postal Code</label>
               <input
                 type="text"
                 name="shipping_postal_code"
@@ -149,16 +139,15 @@ function Checkout() {
                 value={formData.shipping_postal_code}
                 onChange={handleChange}
                 placeholder="10001"
-                style={{ width: "100%", padding: "10px", background: "#111", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
               />
             </div>
           </div>
 
           {/* Payment Method */}
-          <h3 style={{ color: "#D4AF37", borderBottom: "1px solid #333", paddingBottom: "10px" }}>
+          <h3 className="checkout-section-title" style={{ marginTop: "20px" }}>
             Payment Method
           </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "15px", marginBottom: "20px" }}>
+          <div className="payment-methods-grid">
             {[
               { id: "COD", label: "Cash on Delivery" },
               { id: "STRIPE", label: "Stripe Credit Card" },
@@ -167,17 +156,7 @@ function Checkout() {
               <div
                 key={m.id}
                 onClick={() => setFormData({ ...formData, payment_method: m.id })}
-                style={{
-                  background: formData.payment_method === m.id ? "#D4AF37" : "#111",
-                  color: formData.payment_method === m.id ? "#000" : "#fff",
-                  border: "1px solid #D4AF37",
-                  padding: "15px",
-                  borderRadius: "6px",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                  fontSize: "14px",
-                }}
+                className={`payment-method-card ${formData.payment_method === m.id ? "active" : ""}`}
               >
                 {m.label}
               </div>
@@ -186,7 +165,7 @@ function Checkout() {
         </div>
 
         {/* Summary Box */}
-        <div style={{ background: "#111", padding: "25px", borderRadius: "10px", border: "1px solid #D4AF37", height: "fit-content" }}>
+        <div className="order-summary-box">
           <h3 style={{ color: "#D4AF37", marginTop: 0, borderBottom: "1px solid #333", paddingBottom: "15px" }}>
             Order Review
           </h3>
