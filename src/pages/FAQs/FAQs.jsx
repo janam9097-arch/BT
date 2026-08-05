@@ -18,7 +18,7 @@ const faqData = [
     id: 3,
     category: "shipping",
     question: "What shipping options are available and how long do they take?",
-    answer: "We offer Standard Ground (3-5 business days), Express (2 business days), and Overnight shipping. Free standard shipping applies to orders over $100.",
+    answer: "We offer Standard Ground (3-5 business days), Express (2 business days), and Overnight shipping. Free standard shipping applies to orders over ₹1000.",
   },
   {
     id: 4,

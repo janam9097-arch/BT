@@ -100,7 +100,7 @@ function OrderDetails() {
           <h4 style={{ color: "#D4AF37", marginTop: 0 }}>Payment Information</h4>
           <p style={{ margin: "4px 0" }}><strong>Method:</strong> {order.payment_method}</p>
           <p style={{ margin: "4px 0" }}><strong>Status:</strong> <span style={{ color: order.payment_status === "COMPLETED" ? "#4caf50" : "#ff9800" }}>{order.payment_status}</span></p>
-          <p style={{ margin: "4px 0" }}><strong>Grand Total:</strong> <span style={{ color: "#D4AF37", fontSize: "18px", fontWeight: "bold" }}>${order.grand_total}</span></p>
+          <p style={{ margin: "4px 0" }}><strong>Grand Total:</strong> <span style={{ color: "#D4AF37", fontSize: "18px", fontWeight: "bold" }}>₹{order.grand_total}</span></p>
         </div>
       </div>
 
@@ -117,11 +117,11 @@ function OrderDetails() {
             <div style={{ flex: 1 }}>
               <h4 style={{ margin: "0 0 5px 0" }}>{item.product_name}</h4>
               <p style={{ margin: 0, color: "#aaa", fontSize: "14px" }}>
-                ${item.price} x {item.quantity}
+                ₹{item.price} x {item.quantity}
               </p>
             </div>
             <div style={{ color: "#D4AF37", fontWeight: "bold", fontSize: "16px" }}>
-              ${item.total_price}
+              ₹{item.total_price}
             </div>
           </div>
         ))}

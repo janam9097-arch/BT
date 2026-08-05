@@ -64,7 +64,7 @@ function Cart() {
                       Variant: {item.variant.size} / {item.variant.color}
                     </p>
                   )}
-                  <span className="cart-item-price">${item.unit_price}</span>
+                  <span className="cart-item-price">₹{item.unit_price}</span>
                 </div>
 
                 {/* Quantity Controls */}
@@ -85,7 +85,7 @@ function Cart() {
                 </div>
 
                 <div className="cart-item-total">
-                  ${item.total_price}
+                  ₹{item.total_price}
                 </div>
 
                 <button
@@ -130,26 +130,26 @@ function Cart() {
 
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#ccc" }}>
               <span>Subtotal</span>
-              <span>${cart?.subtotal || "0.00"}</span>
+              <span>₹{cart?.subtotal || "0.00"}</span>
             </div>
             {cart?.discount_amount > 0 && (
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#4caf50" }}>
                 <span>Discount</span>
-                <span>-${cart.discount_amount}</span>
+                <span>-₹{cart.discount_amount}</span>
               </div>
             )}
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#ccc" }}>
               <span>Estimated Tax (5%)</span>
-              <span>${cart?.tax_amount || "0.00"}</span>
+              <span>₹{cart?.tax_amount || "0.00"}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "#ccc" }}>
               <span>Shipping</span>
-              <span>{cart?.shipping_cost > 0 ? `$${cart.shipping_cost}` : "FREE"}</span>
+              <span>{cart?.shipping_cost > 0 ? `₹${cart.shipping_cost}` : "FREE"}</span>
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #333", paddingTop: "15px", marginTop: "15px", fontSize: "20px", fontWeight: "bold", color: "#D4AF37" }}>
               <span>Grand Total</span>
-              <span>${cart?.grand_total || "0.00"}</span>
+              <span>₹{cart?.grand_total || "0.00"}</span>
             </div>
 
             <button

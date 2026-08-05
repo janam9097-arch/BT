@@ -259,9 +259,9 @@ function ProductDetails() {
           {/* Price & Stock Card */}
           <div className="pd-price-card">
             <div className="pd-price-box">
-              <span className="pd-current-price">${product.discount_price || product.price}</span>
+              <span className="pd-current-price">₹{product.discount_price || product.price}</span>
               {product.discount_price && (
-                <span className="pd-original-price">${product.price}</span>
+                <span className="pd-original-price">₹{product.price}</span>
               )}
               {product.discount_text && (
                 <span className="pd-discount-badge">{product.discount_text}</span>
@@ -500,7 +500,7 @@ function ProductDetails() {
             </>
           ) : (
             <>
-              <FaShoppingCart /> Add to Cart (${(parseFloat(product.discount_price || product.price) * quantity).toFixed(2)})
+              <FaShoppingCart /> Add to Cart (₹{(parseFloat(product.discount_price || product.price) * quantity).toFixed(2)})
             </>
           )}
         </button>

@@ -24,7 +24,7 @@ const calculateCartTotals = (items, couponCode = null) => {
 
   const taxableSubtotal = Math.max(0, subtotalVal - discountVal);
   const taxVal = Math.round(taxableSubtotal * 0.05 * 100) / 100;
-  const shippingVal = subtotalVal >= 100 || items.length === 0 ? 0 : 10.0;
+  const shippingVal = subtotalVal >= 1000 || items.length === 0 ? 0 : 99.0;
   const grandTotalVal = Math.max(0, subtotalVal - discountVal + taxVal + shippingVal);
 
   return {

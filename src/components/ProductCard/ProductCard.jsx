@@ -13,7 +13,7 @@ function ProductCard({ product }) {
 
   const title = product.title || product.name;
   const image = product.primary_image || product.image || 'https://picsum.photos/400';
-  const discountText = product.discount_text || product.discount || (product.discount_price ? `$${product.discount_price}` : `$${product.price}`);
+  const discountText = product.discount_text || product.discount || (product.discount_price ? `₹${product.discount_price}` : `₹${product.price}`);
   const slug = product.slug || product.id;
   const inWishlist = isInWishlist(product.id);
 

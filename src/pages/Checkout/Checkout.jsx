@@ -174,7 +174,7 @@ function Checkout() {
             {cart.items.map((item) => (
               <div key={item.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px", fontSize: "14px" }}>
                 <span>{item.quantity}x {item.product?.title}</span>
-                <span style={{ color: "#D4AF37" }}>${item.total_price}</span>
+                <span style={{ color: "#D4AF37" }}>₹{item.total_price}</span>
               </div>
             ))}
           </div>
@@ -182,26 +182,26 @@ function Checkout() {
           <div style={{ borderTop: "1px solid #333", paddingTop: "15px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#ccc" }}>
               <span>Subtotal</span>
-              <span>${cart.subtotal}</span>
+              <span>₹{cart.subtotal}</span>
             </div>
             {cart.discount_amount > 0 && (
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#4caf50" }}>
                 <span>Discount</span>
-                <span>-${cart.discount_amount}</span>
+                <span>-₹{cart.discount_amount}</span>
               </div>
             )}
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#ccc" }}>
               <span>Tax (5%)</span>
-              <span>${cart.tax_amount}</span>
+              <span>₹{cart.tax_amount}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "#ccc" }}>
               <span>Shipping</span>
-              <span>{cart.shipping_cost > 0 ? `$${cart.shipping_cost}` : "FREE"}</span>
+              <span>{cart.shipping_cost > 0 ? `₹${cart.shipping_cost}` : "FREE"}</span>
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #333", paddingTop: "15px", marginTop: "15px", fontSize: "20px", fontWeight: "bold", color: "#D4AF37" }}>
               <span>Grand Total</span>
-              <span>${cart.grand_total}</span>
+              <span>₹{cart.grand_total}</span>
             </div>
           </div>
 

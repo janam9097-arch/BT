@@ -6,25 +6,25 @@ function Shipping() {
     {
       name: "Standard Ground",
       time: "3 – 5 Business Days",
-      cost: "FREE (Orders over $100)",
-      notes: "$5.99 flat rate for orders under $100",
+      cost: "FREE (Orders over ₹1000)",
+      notes: "₹99 flat rate for orders under ₹1000",
     },
     {
       name: "Express Delivery",
       time: "2 Business Days",
-      cost: "$15.00",
-      notes: "Orders placed before 2 PM EST ship same day",
+      cost: "₹250.00",
+      notes: "Orders placed before 2 PM IST ship same day",
     },
     {
       name: "Overnight Delivery",
       time: "Next Business Day",
-      cost: "$25.00",
+      cost: "₹500.00",
       notes: "Guaranteed next day delivery",
     },
     {
       name: "International Priority",
       time: "5 – 8 Business Days",
-      cost: "$35.00",
+      cost: "₹1500.00",
       notes: "Duties and taxes calculated at checkout",
     },
   ];

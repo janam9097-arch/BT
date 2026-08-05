@@ -91,7 +91,7 @@ function Orders() {
                   {order.status}
                 </span>
                 <div style={{ fontSize: "20px", fontWeight: "bold", color: "#fff", marginBottom: "10px" }}>
-                  ${order.grand_total}
+                  ₹{order.grand_total}
                 </div>
                 <Link
                   to={`/orders/${order.id}`}
