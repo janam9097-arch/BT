@@ -15,9 +15,10 @@ function Wishlist() {
         <div style={{ color: "#aaa", textAlign: "center", padding: "50px" }}>Your wishlist is empty.</div>
       ) : (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "20px" }}>
-          {wishlist.map((item) => (
-            <ProductsCard key={item.id} product={item.product} />
-          ))}
+          {wishlist.map((item) => {
+            const prod = item.product || item;
+            return <ProductsCard key={item.id || prod.id} product={prod} />;
+          })}
         </div>
       )}
     </div>

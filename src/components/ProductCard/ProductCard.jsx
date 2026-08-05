@@ -26,7 +26,7 @@ function ProductCard({ product }) {
     if (inWishlist) {
       removeFromWishlist(product.id);
     } else {
-      addToWishlist(product.id);
+      addToWishlist(product.id, product);
     }
   };
 

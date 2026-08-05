@@ -15,7 +15,16 @@ class WishlistView(APIView):
 
     def post(self, request):
         product_id = request.data.get('product_id')
-        product = Product.objects.filter(id=product_id, is_active=True).first()
+        if not product_id:
+            return Response({'error': 'Product ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        product = None
+        try:
+            pid_int = int(product_id)
+            product = Product.objects.filter(id=pid_int, is_active=True).first()
+        except (ValueError, TypeError):
+            product = Product.objects.filter(slug=str(product_id), is_active=True).first()
+
         if not product:
             return Response({'error': 'Product not found.'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -27,7 +36,11 @@ class WishlistView(APIView):
     def delete(self, request):
         product_id = request.data.get('product_id')
         if product_id:
-            Wishlist.objects.filter(user=request.user, product_id=product_id).delete()
+            try:
+                pid_int = int(product_id)
+                Wishlist.objects.filter(user=request.user, product_id=pid_int).delete()
+            except (ValueError, TypeError):
+                Wishlist.objects.filter(user=request.user, product__slug=str(product_id)).delete()
             return Response({'message': 'Item removed from wishlist.'})
         return Response({'error': 'product_id required.'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -36,7 +49,16 @@ class AddToWishlistView(APIView):
 
     def post(self, request):
         product_id = request.data.get('product_id')
-        product = Product.objects.filter(id=product_id, is_active=True).first()
+        if not product_id:
+            return Response({'error': 'Product ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        product = None
+        try:
+            pid_int = int(product_id)
+            product = Product.objects.filter(id=pid_int, is_active=True).first()
+        except (ValueError, TypeError):
+            product = Product.objects.filter(slug=str(product_id), is_active=True).first()
+
         if not product:
             return Response({'error': 'Product not found.'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -51,13 +73,21 @@ class RemoveFromWishlistView(APIView):
     def delete(self, request, product_id=None):
         pid = product_id or request.data.get('product_id')
         if pid:
-            Wishlist.objects.filter(user=request.user, product_id=pid).delete()
+            try:
+                pid_int = int(pid)
+                Wishlist.objects.filter(user=request.user, product_id=pid_int).delete()
+            except (ValueError, TypeError):
+                Wishlist.objects.filter(user=request.user, product__slug=str(pid)).delete()
             return Response({'message': 'Item removed from wishlist.'})
         return Response({'error': 'product_id required.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, product_id=None):
         pid = product_id or request.data.get('product_id')
         if pid:
-            Wishlist.objects.filter(user=request.user, product_id=pid).delete()
+            try:
+                pid_int = int(pid)
+                Wishlist.objects.filter(user=request.user, product_id=pid_int).delete()
+            except (ValueError, TypeError):
+                Wishlist.objects.filter(user=request.user, product__slug=str(pid)).delete()
             return Response({'message': 'Item removed from wishlist.'})
         return Response({'error': 'product_id required.'}, status=status.HTTP_400_BAD_REQUEST)
