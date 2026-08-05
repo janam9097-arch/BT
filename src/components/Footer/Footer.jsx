@@ -49,7 +49,9 @@ function Footer() {
       <div className="footer-container">
         {/* Column 1 — Brand */}
         <div className="footer-brand-col">
-          <div className="footer-brand-heading">BANGARU THREADS</div>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <span className="brand-logo-text" style={{ fontSize: "36px" }}>BT</span>
+          </Link>
           <p className="footer-brand-desc">
             A luxury fashion house crafting handloom silk, bespoke apparel, and timeless accessories for Men, Women, and Kids.
           </p>
@@ -70,7 +72,7 @@ function Footer() {
         </div>
 
         {/* Column 2 — Shop Collections */}
-        <div>
+        <div className="footer-column">
           <h4 className="footer-col-title">Shop Collections</h4>
           <ul className="footer-links-list">
             <li className="footer-link-item"><Link to="/products?category=men">Men's Apparel</Link></li>
@@ -82,7 +84,7 @@ function Footer() {
         </div>
 
         {/* Column 3 — Customer Care */}
-        <div>
+        <div className="footer-column">
           <h4 className="footer-col-title">Customer Care</h4>
           <ul className="footer-links-list">
             <li className="footer-link-item"><Link to="/track-order">Track Your Order</Link></li>
@@ -94,7 +96,7 @@ function Footer() {
         </div>
 
         {/* Column 4 — About & Legal */}
-        <div>
+        <div className="footer-column">
           <h4 className="footer-col-title">About & Legal</h4>
           <ul className="footer-links-list">
             <li className="footer-link-item"><Link to="/about">Our Heritage</Link></li>
@@ -105,7 +107,7 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar — Copyright Line (Payment icons removed completely) */}
+      {/* Bottom Bar — Copyright Line (No payment badges) */}
       <div className="footer-bottom-bar">
         <div className="footer-copyright">
           © 2026 Bangaru Threads. All Rights Reserved. Crafted for Luxury.
