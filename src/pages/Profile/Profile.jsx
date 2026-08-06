@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaUser, FaMapMarkerAlt, FaShieldAlt, FaBox } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 import { authService } from "../../services/authService";
+import "./Profile.css";
 
 function Profile() {
   const { user, logout } = useAuth();
@@ -74,73 +76,75 @@ function Profile() {
     navigate("/login");
   };
 
+  const tabs = [
+    { id: "info", label: "Personal Info", icon: <FaUser className="tab-icon" /> },
+    { id: "addresses", label: "Addresses", icon: <FaMapMarkerAlt className="tab-icon" /> },
+    { id: "security", label: "Security", icon: <FaShieldAlt className="tab-icon" /> },
+  ];
+
   return (
-    <div style={{ maxWidth: "1000px", margin: "40px auto", padding: "0 20px", color: "#fff" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #333", paddingBottom: "20px", marginBottom: "30px" }}>
-        <div>
-          <h2 style={{ color: "#D4AF37", margin: "0 0 5px 0" }}>My Account</h2>
-          <p style={{ color: "#aaa", margin: 0 }}>Welcome, {user?.first_name || user?.email}</p>
+    <div className="profile-page">
+      {/* Header */}
+      <div className="profile-header">
+        <div className="profile-header-info">
+          <h2>My Account</h2>
+          <p>Welcome, {user?.first_name || user?.email}</p>
         </div>
-        <button
-          onClick={handleLogout}
-          style={{ background: "#ff4d4f", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "6px", fontWeight: "bold", cursor: "pointer" }}
-        >
+        <button onClick={handleLogout} className="profile-logout-btn">
           Logout
         </button>
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: "15px", marginBottom: "30px" }}>
-        {["info", "addresses", "security"].map((tab) => (
+      <div className="profile-tabs">
+        {tabs.map((tab) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            style={{
-              background: activeTab === tab ? "#D4AF37" : "#111",
-              color: activeTab === tab ? "#000" : "#fff",
-              border: "1px solid #D4AF37",
-              padding: "10px 20px",
-              borderRadius: "6px",
-              fontWeight: "bold",
-              cursor: "pointer",
-              textTransform: "capitalize",
-            }}
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`profile-tab-btn ${activeTab === tab.id ? "active" : ""}`}
           >
-            {tab === "info" ? "Personal Info" : tab === "addresses" ? "Saved Addresses" : "Security"}
+            {tab.icon}
+            {tab.label}
           </button>
         ))}
-        <Link
-          to="/orders"
-          style={{
-            background: "#111",
-            color: "#D4AF37",
-            border: "1px solid #D4AF37",
-            padding: "10px 20px",
-            borderRadius: "6px",
-            fontWeight: "bold",
-            textDecoration: "none",
-            display: "inline-block",
-          }}
-        >
+        <Link to="/orders" className="profile-tab-btn">
+          <FaBox className="tab-icon" />
           My Orders
         </Link>
       </div>
 
-      {/* Tab 1: Info */}
+      {/* Tab 1: Personal Info */}
       {activeTab === "info" && (
-        <div style={{ background: "#111", padding: "30px", borderRadius: "10px", border: "1px solid #333" }}>
-          <h3 style={{ color: "#D4AF37", marginTop: 0 }}>User Profile</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-            <div>
-              <p><strong>Email:</strong> {user?.email}</p>
-              <p><strong>Username:</strong> {user?.username}</p>
-              <p><strong>First Name:</strong> {user?.first_name}</p>
-              <p><strong>Last Name:</strong> {user?.last_name}</p>
+        <div className="profile-card">
+          <h3 className="profile-card-title">User Profile</h3>
+          <div className="profile-info-grid">
+            <div className="profile-info-item">
+              <span className="profile-info-label">Email</span>
+              <span className="profile-info-value">{user?.email}</span>
             </div>
-            <div>
-              <p><strong>Phone:</strong> {user?.phone_number || "Not specified"}</p>
-              <p><strong>Account Status:</strong> <span style={{ color: "#4caf50" }}>Active VIP</span></p>
-              <p><strong>Email Verified:</strong> {user?.is_email_verified ? "Yes" : "Verified"}</p>
+            <div className="profile-info-item">
+              <span className="profile-info-label">Username</span>
+              <span className="profile-info-value">{user?.username || "—"}</span>
+            </div>
+            <div className="profile-info-item">
+              <span className="profile-info-label">First Name</span>
+              <span className="profile-info-value">{user?.first_name || "—"}</span>
+            </div>
+            <div className="profile-info-item">
+              <span className="profile-info-label">Last Name</span>
+              <span className="profile-info-value">{user?.last_name || "—"}</span>
+            </div>
+            <div className="profile-info-item">
+              <span className="profile-info-label">Phone</span>
+              <span className="profile-info-value">{user?.phone_number || "Not specified"}</span>
+            </div>
+            <div className="profile-info-item">
+              <span className="profile-info-label">Account Status</span>
+              <span className="profile-info-value status-active">Active VIP</span>
+            </div>
+            <div className="profile-info-item">
+              <span className="profile-info-label">Email Verified</span>
+              <span className="profile-info-value">{user?.is_email_verified ? "Yes" : "Verified"}</span>
             </div>
           </div>
         </div>
@@ -149,67 +153,76 @@ function Profile() {
       {/* Tab 2: Addresses */}
       {activeTab === "addresses" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", marginBottom: "30px" }}>
+          {/* Saved Addresses */}
+          <div className="profile-addresses-grid">
             {addresses.map((addr) => (
-              <div key={addr.id} style={{ background: "#111", padding: "20px", borderRadius: "8px", border: addr.is_default ? "2px solid #D4AF37" : "1px solid #333" }}>
-                {addr.is_default && <span style={{ background: "#D4AF37", color: "#000", fontSize: "12px", padding: "2px 8px", borderRadius: "4px", fontWeight: "bold" }}>DEFAULT</span>}
-                <h4 style={{ margin: "10px 0 5px 0" }}>{addr.full_name}</h4>
-                <p style={{ color: "#aaa", fontSize: "14px", margin: 0 }}>{addr.street_address}</p>
-                <p style={{ color: "#aaa", fontSize: "14px", margin: 0 }}>{addr.city}, {addr.state} {addr.postal_code}</p>
-                <p style={{ color: "#aaa", fontSize: "14px", margin: 0 }}>Phone: {addr.phone_number}</p>
+              <div
+                key={addr.id}
+                className={`profile-address-card ${addr.is_default ? "default" : ""}`}
+              >
+                {addr.is_default && (
+                  <span className="profile-address-default-badge">DEFAULT</span>
+                )}
+                <h4 className="profile-address-name">{addr.full_name}</h4>
+                <p className="profile-address-detail">{addr.street_address}</p>
+                <p className="profile-address-detail">
+                  {addr.city}, {addr.state} {addr.postal_code}
+                </p>
+                <p className="profile-address-detail">Phone: {addr.phone_number}</p>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleAddAddress} style={{ background: "#111", padding: "25px", borderRadius: "8px", border: "1px solid #333" }}>
-            <h4 style={{ color: "#D4AF37", marginTop: 0 }}>Add New Address</h4>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px", marginBottom: "15px" }}>
+          {/* Add New Address Form */}
+          <form onSubmit={handleAddAddress} className="profile-card">
+            <h3 className="profile-card-title">Add New Address</h3>
+            <div className="profile-form-grid">
               <input
+                className="profile-input"
                 placeholder="Full Name"
                 required
                 value={newAddr.full_name}
                 onChange={(e) => setNewAddr({ ...newAddr, full_name: e.target.value })}
-                style={{ padding: "10px", background: "#222", color: "#fff", border: "1px solid #444" }}
               />
               <input
+                className="profile-input"
                 placeholder="Phone Number"
                 required
                 value={newAddr.phone_number}
                 onChange={(e) => setNewAddr({ ...newAddr, phone_number: e.target.value })}
-                style={{ padding: "10px", background: "#222", color: "#fff", border: "1px solid #444" }}
               />
             </div>
             <input
+              className="profile-input profile-input-full"
               placeholder="Street Address"
               required
               value={newAddr.street_address}
               onChange={(e) => setNewAddr({ ...newAddr, street_address: e.target.value })}
-              style={{ width: "100%", padding: "10px", background: "#222", color: "#fff", border: "1px solid #444", marginBottom: "15px", boxSizing: "border-box" }}
             />
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "15px", marginBottom: "15px" }}>
+            <div className="profile-form-grid-3">
               <input
+                className="profile-input"
                 placeholder="City"
                 required
                 value={newAddr.city}
                 onChange={(e) => setNewAddr({ ...newAddr, city: e.target.value })}
-                style={{ padding: "10px", background: "#222", color: "#fff", border: "1px solid #444" }}
               />
               <input
+                className="profile-input"
                 placeholder="State"
                 required
                 value={newAddr.state}
                 onChange={(e) => setNewAddr({ ...newAddr, state: e.target.value })}
-                style={{ padding: "10px", background: "#222", color: "#fff", border: "1px solid #444" }}
               />
               <input
+                className="profile-input"
                 placeholder="Postal Code"
                 required
                 value={newAddr.postal_code}
                 onChange={(e) => setNewAddr({ ...newAddr, postal_code: e.target.value })}
-                style={{ padding: "10px", background: "#222", color: "#fff", border: "1px solid #444" }}
               />
             </div>
-            <button type="submit" style={{ background: "#D4AF37", color: "#000", border: "none", padding: "12px 24px", fontWeight: "bold", borderRadius: "4px", cursor: "pointer" }}>
+            <button type="submit" className="profile-submit-btn">
               Save Address
             </button>
           </form>
@@ -218,30 +231,33 @@ function Profile() {
 
       {/* Tab 3: Security */}
       {activeTab === "security" && (
-        <form onSubmit={handlePasswordChange} style={{ background: "#111", padding: "30px", borderRadius: "10px", border: "1px solid #333", maxWidth: "500px" }}>
-          <h3 style={{ color: "#D4AF37", marginTop: 0 }}>Change Password</h3>
-          {pwdMsg && <p style={{ color: "#D4AF37" }}>{pwdMsg}</p>}
-          <div style={{ marginBottom: "15px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>Current Password</label>
+        <form
+          onSubmit={handlePasswordChange}
+          className="profile-card profile-security-form"
+        >
+          <h3 className="profile-card-title">Change Password</h3>
+          {pwdMsg && <div className="profile-pwd-message">{pwdMsg}</div>}
+          <div style={{ marginBottom: "14px" }}>
+            <label className="profile-form-label">Current Password</label>
             <input
+              className="profile-input"
               type="password"
               required
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
-              style={{ width: "100%", padding: "10px", background: "#222", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
             />
           </div>
           <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>New Password</label>
+            <label className="profile-form-label">New Password</label>
             <input
+              className="profile-input"
               type="password"
               required
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              style={{ width: "100%", padding: "10px", background: "#222", color: "#fff", border: "1px solid #444", borderRadius: "4px", boxSizing: "border-box" }}
             />
           </div>
-          <button type="submit" style={{ background: "#D4AF37", color: "#000", border: "none", padding: "12px 24px", fontWeight: "bold", borderRadius: "4px", cursor: "pointer" }}>
+          <button type="submit" className="profile-submit-btn">
             Update Password
           </button>
         </form>

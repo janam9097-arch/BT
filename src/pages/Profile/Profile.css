@@ -1,0 +1,388 @@
+/* ==========================================
+   Profile / My Account — Premium Luxury Theme
+   ========================================== */
+
+.profile-page {
+  max-width: 960px;
+  margin: 30px auto 80px;
+  padding: 0 20px;
+  color: #fff;
+}
+
+/* --- Header Row --- */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #222;
+}
+
+.profile-header-info h2 {
+  color: #D4AF37;
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.profile-header-info p {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}
+
+.profile-logout-btn {
+  background: transparent;
+  color: #ff4d4f;
+  border: 1px solid rgba(255, 77, 79, 0.4);
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.profile-logout-btn:hover {
+  background: rgba(255, 77, 79, 0.12);
+  border-color: #ff4d4f;
+}
+
+/* --- Tabs --- */
+.profile-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.profile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.profile-tab-btn {
+  background: #111;
+  color: #ccc;
+  border: 1px solid #2a2a2a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-tab-btn:hover {
+  border-color: #D4AF37;
+  color: #D4AF37;
+}
+
+.profile-tab-btn.active {
+  background: #D4AF37;
+  color: #000;
+  border-color: #D4AF37;
+}
+
+.profile-tab-btn .tab-icon {
+  font-size: 14px;
+}
+
+/* --- Cards / Panels --- */
+.profile-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.profile-card-title {
+  color: #D4AF37;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+/* --- Personal Info Grid --- */
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.profile-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-info-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.profile-info-value {
+  font-size: 15px;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.profile-info-value.status-active {
+  color: #4caf50;
+}
+
+/* --- Addresses --- */
+.profile-addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.profile-address-card {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.profile-address-card.default {
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.profile-address-default-badge {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.15);
+  color: #D4AF37;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  margin-bottom: 10px;
+}
+
+.profile-address-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 6px 0;
+}
+
+.profile-address-detail {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* --- Form Fields --- */
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.profile-form-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.profile-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.profile-input:focus {
+  border-color: #D4AF37;
+}
+
+.profile-input::placeholder {
+  color: #666;
+}
+
+.profile-input-full {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.profile-form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bbb;
+  margin-bottom: 6px;
+}
+
+/* --- Buttons --- */
+.profile-submit-btn {
+  background: #D4AF37;
+  color: #000;
+  border: none;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.profile-submit-btn:hover {
+  background: #e0be4a;
+  transform: translateY(-1px);
+}
+
+.profile-submit-btn:active {
+  transform: scale(0.97);
+}
+
+/* --- Security Tab --- */
+.profile-security-form {
+  max-width: 440px;
+}
+
+.profile-pwd-message {
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #D4AF37;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+  .profile-page {
+    margin: 20px auto 90px;
+    padding: 0 16px;
+  }
+
+  /* --- Header: stack vertically --- */
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .profile-header-info h2 {
+    font-size: 22px;
+  }
+
+  .profile-header-info p {
+    font-size: 13px;
+  }
+
+  .profile-logout-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  /* --- Tabs: horizontal scroll pills --- */
+  .profile-tabs {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .profile-tab-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  /* --- Cards --- */
+  .profile-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .profile-card-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  /* --- Info: stack single column --- */
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .profile-info-value {
+    font-size: 14px;
+  }
+
+  /* --- Addresses: single column stack --- */
+  .profile-addresses-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .profile-address-card {
+    padding: 16px;
+  }
+
+  /* --- Forms: single column --- */
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .profile-form-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .profile-input {
+    padding: 14px 14px;
+    font-size: 15px;
+  }
+
+  .profile-submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  /* --- Security --- */
+  .profile-security-form {
+    max-width: 100%;
+  }
+}
