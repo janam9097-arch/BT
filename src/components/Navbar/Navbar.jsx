@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaBox, FaHeadset, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchSubmit = (e) => {
@@ -12,6 +14,15 @@ function Navbar() {
     if (searchTerm.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
       setSearchTerm("");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout error:", err);
     }
   };
 
@@ -35,7 +46,7 @@ function Navbar() {
           </ul>
         </nav>
 
-        {/* Search Bar (Right) */}
+        {/* Search Bar */}
         <form className="header-search-form" onSubmit={handleSearchSubmit}>
           <button type="submit" className="header-search-submit-btn" aria-label="Search">
             <FaSearch className="header-search-icon" />
@@ -48,6 +59,29 @@ function Navbar() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
+
+        {/* Action Buttons: Orders, Help Center, Log Out */}
+        <div className="header-nav-buttons">
+          <Link to="/orders" className="nav-action-btn" title="Orders">
+            <FaBox className="nav-action-btn-icon" />
+            <span>Orders</span>
+          </Link>
+          <Link to="/faqs" className="nav-action-btn" title="Help Center">
+            <FaHeadset className="nav-action-btn-icon" />
+            <span>Help Center</span>
+          </Link>
+          {user ? (
+            <button onClick={handleLogout} className="nav-action-btn logout-btn" title="Log Out">
+              <FaSignOutAlt className="nav-action-btn-icon" />
+              <span>Log Out</span>
+            </button>
+          ) : (
+            <Link to="/login" className="nav-action-btn logout-btn" title="Log In">
+              <FaSignInAlt className="nav-action-btn-icon" />
+              <span>Log In</span>
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );
