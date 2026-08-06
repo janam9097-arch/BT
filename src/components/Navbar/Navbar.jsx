@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaUser, FaHeart, FaShoppingBag } from "react-icons/fa";
-import { useCart } from "../../context/CartContext";
-import { useWishlist } from "../../context/WishlistContext";
-import { useAuth } from "../../context/AuthContext";
+import { FaSearch } from "react-icons/fa";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { cartCount } = useCart();
-  const { wishlist } = useWishlist();
-  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchSubmit = (e) => {
@@ -32,6 +26,7 @@ function Navbar() {
         {/* Primary Nav (Desktop) */}
         <nav className="desktop-nav-wrap">
           <ul className="main-nav-ul">
+            <li><Link to="/products" className="main-nav-link">Shop</Link></li>
             <li><Link to="/products?category=men" className="main-nav-link">Men</Link></li>
             <li><Link to="/products?category=women" className="main-nav-link">Women</Link></li>
             <li><Link to="/products?category=kids" className="main-nav-link">Kids</Link></li>
@@ -40,9 +35,11 @@ function Navbar() {
           </ul>
         </nav>
 
-        {/* Search Bar (Center, desktop) */}
+        {/* Search Bar (Right) */}
         <form className="header-search-form" onSubmit={handleSearchSubmit}>
-          <FaSearch className="header-search-icon" onClick={handleSearchSubmit} />
+          <button type="submit" className="header-search-submit-btn" aria-label="Search">
+            <FaSearch className="header-search-icon" />
+          </button>
           <input
             type="text"
             className="header-search-input"
@@ -51,37 +48,6 @@ function Navbar() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-
-        {/* Action Icons (Right) */}
-        <div className="header-actions">
-          <button
-            className="action-icon-btn"
-            onClick={() => navigate(user ? "/profile" : "/login")}
-            title={user ? "My Profile" : "Sign In"}
-          >
-            <FaUser />
-          </button>
-          <button
-            className="action-icon-btn"
-            onClick={() => navigate("/wishlist")}
-            title="Wishlist"
-          >
-            <FaHeart />
-            {wishlist?.length > 0 && (
-              <span className="cart-count-badge" style={{ background: "#ff4d4f", color: "#fff" }}>
-                {wishlist.length}
-              </span>
-            )}
-          </button>
-          <button
-            className="action-icon-btn"
-            onClick={() => navigate("/cart")}
-            title="Cart"
-          >
-            <FaShoppingBag />
-            {cartCount > 0 && <span className="cart-count-badge">{cartCount}</span>}
-          </button>
-        </div>
       </div>
     </header>
   );

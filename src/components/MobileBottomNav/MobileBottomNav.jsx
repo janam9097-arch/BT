@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaHome, FaSearch, FaHeart, FaShoppingBag, FaUser } from "react-icons/fa";
+import { FaHome, FaHeart, FaShoppingBag, FaUser } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { useAuth } from "../../context/AuthContext";
@@ -19,10 +19,6 @@ function MobileBottomNav() {
       <Link to="/" className={`mobile-bottom-nav-item ${isActive("/") ? "active" : ""}`}>
         <FaHome className="mobile-bottom-nav-icon" />
         <span>Home</span>
-      </Link>
-      <Link to="/products" className={`mobile-bottom-nav-item ${isActive("/products") ? "active" : ""}`}>
-        <FaSearch className="mobile-bottom-nav-icon" />
-        <span>Shop</span>
       </Link>
       <Link to="/wishlist" className={`mobile-bottom-nav-item ${isActive("/wishlist") ? "active" : ""}`}>
         <FaHeart className="mobile-bottom-nav-icon" />
