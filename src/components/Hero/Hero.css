@@ -149,28 +149,59 @@
 
 @media (max-width: 768px) {
   .hero-container {
-    min-height: 65vh;
+    min-height: 55vh;
   }
 
   .hero-content-wrapper {
-    padding: 50px 20px;
+    padding: 40px 16px;
   }
 
   .hero-text-card {
     align-items: center;
     text-align: center;
+    gap: 14px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.8rem, 6.5vw, 2.5rem);
+  }
+
+  .hero-subcopy {
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .hero-actions-row {
     justify-content: center;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .primary-gold-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 24px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .trust-bar {
+    padding: 12px 14px;
   }
 
   .trust-bar-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 14px;
     justify-content: center;
-    gap: 15px;
   }
 
   .trust-item {
-    font-size: 12px;
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .trust-item-icon {
+    font-size: 15px;
   }
 }

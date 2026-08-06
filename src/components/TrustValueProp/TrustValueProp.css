@@ -52,15 +52,31 @@
 }
 
 @media (max-width: 900px) {
+  .trust-value-section {
+    padding: 30px 14px;
+  }
+
   .trust-value-container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 12px;
   }
-}
 
-@media (max-width: 500px) {
-  .trust-value-container {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .trust-card {
+    padding: 10px 6px;
+    gap: 8px;
+  }
+
+  .trust-card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .trust-card-title {
+    font-size: 15px;
+  }
+
+  .trust-card-desc {
+    font-size: 11px;
   }
 }

@@ -22,10 +22,15 @@
 @media (max-width: 900px) {
   .home-products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 10px;
   }
 
   .home-products-section {
-    padding: 35px 16px;
+    padding: 28px 14px;
+  }
+
+  .home-products-header {
+    margin-bottom: 20px;
+    align-items: center;
   }
 }

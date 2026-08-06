@@ -110,24 +110,33 @@
 /* 2x3 Grid on Mobile */
 @media (max-width: 768px) {
   .categories-container {
-    padding: 35px 16px;
+    padding: 30px 14px;
+  }
+
+  .section-header-centered {
+    margin-bottom: 24px;
   }
 
   .category-tiles-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .category-tile-card {
-    height: 180px;
+    height: 170px;
+    border-radius: 12px;
+  }
+
+  .category-tile-card:active {
+    transform: scale(0.97);
   }
 
   .category-tile-content {
-    padding: 14px;
+    padding: 12px;
   }
 
   .category-tile-name {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .category-tile-cta {
