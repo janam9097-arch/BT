@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaBox, FaHeadset, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { FaSearch, FaBox, FaHeadset, FaSignOutAlt, FaSignInAlt, FaBars, FaTimes } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
@@ -8,6 +8,8 @@ function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -19,12 +21,24 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
+      setMenuOpen(false);
       await logout();
       navigate("/login");
     } catch (err) {
       console.error("Logout error:", err);
     }
   };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="header-nav">
@@ -60,26 +74,65 @@ function Navbar() {
           />
         </form>
 
-        {/* Action Buttons: Orders, Help Center, Log Out */}
-        <div className="header-nav-buttons">
-          <Link to="/orders" className="nav-action-btn" title="Orders">
-            <FaBox className="nav-action-btn-icon" />
-            <span>Orders</span>
-          </Link>
-          <Link to="/faqs" className="nav-action-btn" title="Help Center">
-            <FaHeadset className="nav-action-btn-icon" />
-            <span>Help Center</span>
-          </Link>
-          {user ? (
-            <button onClick={handleLogout} className="nav-action-btn logout-btn" title="Log Out">
-              <FaSignOutAlt className="nav-action-btn-icon" />
-              <span>Log Out</span>
-            </button>
-          ) : (
-            <Link to="/login" className="nav-action-btn logout-btn" title="Log In">
-              <FaSignInAlt className="nav-action-btn-icon" />
-              <span>Log In</span>
-            </Link>
+        {/* Hamburger Menu Container (Orders, Help Center, Log Out) */}
+        <div className="hamburger-menu-container" ref={menuRef}>
+          <button
+            className={`hamburger-toggle-btn ${menuOpen ? "active" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+
+          {menuOpen && (
+            <div className="hamburger-dropdown-menu">
+              <div className="hamburger-menu-header">
+                <span className="hamburger-menu-title">Account & Support</span>
+              </div>
+              <ul className="hamburger-menu-list">
+                <li>
+                  <Link
+                    to="/orders"
+                    className="hamburger-menu-item"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <FaBox className="hamburger-item-icon" />
+                    <span>Orders</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/faqs"
+                    className="hamburger-menu-item"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <FaHeadset className="hamburger-item-icon" />
+                    <span>Help Center</span>
+                  </Link>
+                </li>
+                <li className="hamburger-menu-divider" />
+                <li>
+                  {user ? (
+                    <button
+                      onClick={handleLogout}
+                      className="hamburger-menu-item logout-item"
+                    >
+                      <FaSignOutAlt className="hamburger-item-icon" />
+                      <span>Log Out</span>
+                    </button>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="hamburger-menu-item login-item"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <FaSignInAlt className="hamburger-item-icon" />
+                      <span>Log In</span>
+                    </Link>
+                  )}
+                </li>
+              </ul>
+            </div>
           )}
         </div>
       </div>
